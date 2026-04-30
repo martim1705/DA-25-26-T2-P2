@@ -1,8 +1,12 @@
 #include <iostream>
 #include "Parser.h"
+#include "Web.h"
+
 using namespace std;
 
 int main() {
+
+    // testing parser
     RegisterConfig config = parseRegistersFile("../input/registers");
     vector<LiveRange> ranges = parseRangesFile("../input/ranges");
 
@@ -21,5 +25,23 @@ int main() {
     cout << "Registers: " << config.numRegisters << endl;
     cout << "Algorithm: " << config.algorithm << endl;
     cout << "Parameter: " << config.parameter << endl;
+
+
+// testing buildWebs
+    std::vector<Web> webs = buildWebs(ranges);
+
+    for (const Web& w : webs) {
+        std::cout << "Web " << w.id << " (" << w.variable << "): ";
+
+        for (const ProgramPoint& p : w.points) {
+            std::cout << p.line;
+            if (p.isStart) std::cout << "+";
+            if (p.isEnd) std::cout << "-";
+            std::cout << " ";
+        }
+
+        std::cout << std::endl;
+    }
+
     return 0;
 }
