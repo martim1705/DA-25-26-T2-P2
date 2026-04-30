@@ -20,4 +20,10 @@ struct RegisterConfig {
     std::string algorithm;
     int parameter = 0;
 };
+
+struct Web {
+    int id;
+    std::string variable;
+    std::vector<ProgramPoint> points;
+};
 #endif //PROJETO2_STRUCTURES_H
