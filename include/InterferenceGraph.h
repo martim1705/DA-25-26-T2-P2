@@ -4,5 +4,9 @@
 
 #ifndef PROJETO2_INTERFERENCEGRAPH_H
 #define PROJETO2_INTERFERENCEGRAPH_H
+#include "Graph.h"
+#include "Structures.h"
+
+Graph<Web> buildInterferenceGraph(const std::vector<Web>& webs);
 
 #endif //PROJETO2_INTERFERENCEGRAPH_H

@@ -1,3 +1,1 @@
-//
-// Created by leme on 01/05/2026.
-//
+#include "InterferenceGraph.h"
