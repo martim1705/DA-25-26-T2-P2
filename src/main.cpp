@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Parser.h"
 #include "Web.h"
+#include "Graph.h"
+#include "InterferenceGraph.h"
 
 using namespace std;
 
@@ -38,6 +40,21 @@ int main() {
             if (p.isStart) std::cout << "+";
             if (p.isEnd) std::cout << "-";
             std::cout << " ";
+        }
+
+        std::cout << std::endl;
+    }
+
+
+// teste InterferenceGraph
+
+    Graph<Web> g = buildInterferenceGraph(webs);
+
+    for (auto v : g.getVertexSet()) {
+        std::cout << "Web " << v->getInfo().id << " -> ";
+
+        for (auto e : v->getAdj()) {
+            std::cout << "Web " << e->getDest()->getInfo().id << " ";
         }
 
         std::cout << std::endl;

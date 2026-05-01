@@ -12,8 +12,10 @@ add_executable(projeto2
         include/Structures.h
         include/Web.h
         include/InterferenceGraph.h
+        include/colorGraph.h
         src/Allocator.cpp
         src/main.cpp
         src/Parser.cpp
         src/Web.cpp
-        src/InterferenceGraph.cpp)
+        src/InterferenceGraph.cpp
+        src/colorGraph.cpp)
