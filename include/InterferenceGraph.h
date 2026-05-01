@@ -9,4 +9,5 @@
 
 Graph<Web> buildInterferenceGraph(const std::vector<Web>& webs);
 
+bool interfere(const Web& webA, const Web& webB);
 #endif //PROJETO2_INTERFERENCEGRAPH_H
