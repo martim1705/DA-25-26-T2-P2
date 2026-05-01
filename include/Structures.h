@@ -25,5 +25,9 @@ struct Web {
     int id;
     std::string variable;
     std::vector<ProgramPoint> points;
+
+    bool operator==(const Web& other) const {
+        return id == other.id;
+    }
 };
 #endif //PROJETO2_STRUCTURES_H
