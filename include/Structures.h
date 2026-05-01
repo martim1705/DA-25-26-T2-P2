@@ -2,6 +2,7 @@
 #define PROJETO2_STRUCTURES_H
 
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 struct ProgramPoint {
@@ -29,5 +30,10 @@ struct Web {
     bool operator==(const Web& other) const {
         return id == other.id;
     }
+};
+
+struct ColoringResult {
+    bool success;
+    std::unordered_map<int, int> colorOfWeb;
 };
 #endif //PROJETO2_STRUCTURES_H
