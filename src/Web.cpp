@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <unordered_map>
+#include <algorithm>
 
 std::vector<Web> buildWebs(const std::vector<LiveRange>& ranges) {
     std::unordered_map<std::string, std::vector<LiveRange>> group;
@@ -48,6 +49,38 @@ std::vector<Web> buildWebs(const std::vector<LiveRange>& ranges) {
                     }
                 }
             }
+
+            //Tratamento do vector. (Para o output ser correcto, logicamente já funcionava isto).
+            // 1. Ordenar os pontos por ordem crescente
+            std::sort(web.points.begin(), web.points.end(), [](const ProgramPoint& a, const ProgramPoint& b) {
+                return a.line < b.line;
+            });
+
+            //remove duplicados adicionando apenas nrs diferentes, e se já existirem apenas adiciona start e end flags
+            std::vector<ProgramPoint> cleanPoints;
+            for (const auto& p : web.points) {
+                if (cleanPoints.empty() || cleanPoints.back().line != p.line) {
+                    // new number
+                    cleanPoints.push_back(p);
+                } else {
+                    // repeat!
+                    cleanPoints.back().isStart = cleanPoints.back().isStart || p.isStart;
+                    cleanPoints.back().isEnd = cleanPoints.back().isEnd || p.isEnd;
+                }
+            }
+
+            // End e Start n podem coexistir
+            // Isto está num loop extra final para ter a certeza que novas branchs, com um mesmo nr, n provoquem inclusao de sinal a remover.
+            for (auto& p : cleanPoints) {
+                if (p.isStart && p.isEnd) {
+                    p.isStart = false;
+                    p.isEnd = false;
+                }
+            }
+
+            //Replace it
+            web.points = cleanPoints;
+
 
             webs.push_back(web);
         }

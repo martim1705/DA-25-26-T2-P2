@@ -3,6 +3,7 @@
 #include "Web.h"
 #include "Graph.h"
 #include "InterferenceGraph.h"
+#include "colorGraph.h"
 
 using namespace std;
 
@@ -59,6 +60,36 @@ int main() {
 
         std::cout << std::endl;
     }
+
+//Teste BasicColorGraph (T2.1)
+
+    const ColoringResult colorResult=basicColorGraph(g, config.numRegisters);
+
+    std::cout << "# Total number of registers used, followed by assignment to webs\n";
+
+    if (colorResult.success) {
+        int maxColorUsed = -1;
+        for (const auto& webID_color : colorResult.colorOfWeb) {
+            if (webID_color.second > maxColorUsed) {
+                maxColorUsed = webID_color.second;
+            }
+        }
+        const int registersUsed = maxColorUsed + 1;
+
+        std::cout << "registers: " << registersUsed << "\n";
+
+        for (const auto& web : webs) {
+            const int assignedColor = colorResult.colorOfWeb.at(web.id);
+            std::cout << "r" << assignedColor << ": web" << web.id << "\n";
+        }
+    } else {
+        std::cout << "registers: 0\n";
+
+        for (const auto& web : webs) {
+            std::cout << "M: web" << web.id << "\n";
+        }
+    }
+
 
     return 0;
 }
