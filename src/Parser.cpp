@@ -66,7 +66,7 @@ RegisterConfig parseRegistersFile(const std::string& filename) {
 //  i: 20+,11,12-
 
 // Pega no texto neste formator e cria um vetor de
-// LiveRanges (Ver Strucutures.h)
+// LiveRanges (Ver Structures.h)
 // Útil para criar as webs mais tarde
 
 std::vector<LiveRange> parseRangesFile(const std::string& filename) {

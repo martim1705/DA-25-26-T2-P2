@@ -63,7 +63,7 @@ int main() {
 
 //Teste BasicColorGraph (T2.1)
 
-    const ColoringResult colorResult=basicColorGraph(g, config.numRegisters);
+    const ColoringResult colorResult = colorGraphFunc(g, config.numRegisters, config.algorithm,config.parameter);
 
     std::cout << "# Total number of registers used, followed by assignment to webs\n";
 
@@ -78,10 +78,24 @@ int main() {
 
         std::cout << "registers: " << registersUsed << "\n";
 
-        for (const auto& web : webs) {
+        /*for (const auto& web : webs) {
             const int assignedColor = colorResult.colorOfWeb.at(web.id);
             std::cout << "r" << assignedColor << ": web" << web.id << "\n";
         }
+        */
+
+        for (const auto& webID_color:colorResult.colorOfWeb) {
+            int webId = webID_color.first;
+            int assignedColor = webID_color.second;
+
+            if (assignedColor==-1) {
+                std::cout << "M: web" << webId << "\n";
+            }
+            else {
+                std::cout << "r" << assignedColor << ": web" << webId << "\n";
+            }
+        }
+
     } else {
         std::cout << "registers: 0\n";
 
