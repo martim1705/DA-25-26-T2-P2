@@ -7,20 +7,16 @@
 
 #include "InterferenceGraph.h"
 
-//Hopcroft then NodeDegree for choosing vertex to spill or split
+//Hopcroft then NodeDegree for choosing vertex to spill
 //Hopcroft-Tarjan finds articulation nodes, but it is not guaranteed to exist
 //NodeDegree just blindly hopes the heaviest is the best to spill or split
 //Features Optimistic Spilling resolution
-//(stacking a web that is expected to go to memory into coloring stack, can be not set to memory after all, if the math is just right and the stars align)
-
-// Heuristic Priority for Spilling/Splitting:
-// 1. Hopcroft-Tarjan: Finds articulation nodes to break the graph apart (though not guaranteed to exist).
-// 2. Max Node Degree: If no articulation node is found, blindly hopes the heaviest node is the best victim.
-//
-// * Features Optimistic Spilling Resolution *
 // Stacks a web that is expected to go to memory into the coloring stack anyway.
 // If the math works out and its neighbors share colors,
 // it is rescued from memory and safely assigned a register after all.
+
+//Find web with Largest Gap  For Splitting
+
 
 namespace {
     //Hopcroft-Tarjan DFS Algorithm to find an articulation node if it exists
@@ -95,6 +91,21 @@ namespace {
         return victim;
     }
 
+    // Helper to calculate the maximum temporal gap and its index in a single web
+    int getLargestGap(const Web& web, size_t& outSplitIndex) {
+        int maxGap = -1;
+        outSplitIndex = 0;
+
+        for(size_t i = 0; i < web.points.size() - 1; i++) {
+            int gap = web.points[i+1].line - web.points[i].line;
+            if (gap > maxGap) {
+                maxGap = gap;
+                outSplitIndex = i;
+            }
+        }
+        return maxGap;
+    }
+
     //Split using ProgramPoint vector
     bool splitWebAtLargestGap(const Web& victim, Web& partA, Web& partB, int newIdA, int newIdB) {
         if (victim.points.size() < 2) {
@@ -109,19 +120,36 @@ namespace {
         int maxGap = 0;
         size_t splitIndex = 0;
 
-        // Find the largest gap in line numbers
-        for(size_t i = 0; i < victim.points.size() - 1; i++) {
-            int gap = victim.points[i+1].line - victim.points[i].line;
-            if (gap > maxGap) {
-                maxGap = gap;
-                splitIndex = i;
-            }
-        }
+        getLargestGap(victim, splitIndex);
 
         // Slice the vector of ProgramPoints
         partA.points = std::vector<ProgramPoint>(victim.points.begin(), victim.points.begin() + splitIndex + 1);
         partB.points = std::vector<ProgramPoint>(victim.points.begin() + splitIndex + 1, victim.points.end());
         return true;
+    }
+
+    bool findBestSplitCandidate(const Graph<Web>& graph, Web& outVictim) {
+        int maxGapFound = -1;
+        bool found = false;
+
+        for (auto v : graph.getVertexSet()) {
+            Web currentWeb = v->getInfo();
+
+            // If it's a 1-line web, it mathematically cannot be split, so ignore it
+            if (currentWeb.points.size() < 2) continue;
+
+            // Find the largest gap inside this specific web
+            size_t splitIndex = 0;
+            int currentMaxGap = getLargestGap(currentWeb,splitIndex);
+
+            // If this web has the biggest gap we've seen so far, mark it as the victim
+            if (currentMaxGap > maxGapFound) {
+                maxGapFound = currentMaxGap;
+                outVictim = currentWeb;
+                found = true;
+            }
+        }
+        return found;
     }
 
     ColoringResult assignColors(Graph<Web>& graph,std::stack<Web>& toColorStack,int N) {
@@ -175,7 +203,7 @@ ColoringResult colorGraphFunc(Graph<Web> &graph, const int N, const std::string&
     ColoringResult result;
     int budgetUsed = 0;
     std::stack<Web> toColorStack;
-    int nextAvailableId = 9000;
+
 
     //Implementação do pseudo-código definido no pdf do projecto
     while (temp_graph.getNumVertex() > 0) {
@@ -209,21 +237,27 @@ ColoringResult colorGraphFunc(Graph<Web> &graph, const int N, const std::string&
                 return result;
             }
             budgetUsed++;
-            //this only runs if it is not and changed and not basic
-            //Find articulation node/Web
-            //if no articulation found settle for the highest degree node. N garante nada...
+
+            //this only runs if it is not changed and not basic
             Web victim;
-            if (!findArticulationNode(temp_graph, victim)) {
-                victim = findMaxDegreeNode(temp_graph);
-            }
-
-
             if (mode == " spilling") {// "dump" victim into memory,
+                //Find articulation node/Web
+                //if no articulation found (n é garantido) settle for the highest degree node.
+                if (!findArticulationNode(temp_graph, victim)) {
+                    victim = findMaxDegreeNode(temp_graph);
+                }
                 temp_graph.removeVertex(victim);
                 toColorStack.push(victim);
 
             }
-            else if (mode == " splitting") {//Find articulation node (Web) and split it creating two nodes
+            else if (mode == " splitting") {
+
+                if (!findBestSplitCandidate(temp_graph, victim)) {
+                    std::cerr << "Assignment not feasible: No splittable webs remaining in the deadlock.\n";
+                    result.success = false;
+                    return result;
+                }
+
                 //saving old edges before splitting
                 std::vector<Web> oldNeighbors;
                 for (auto edge : graph.findVertex(victim)->getAdj()) {
@@ -236,8 +270,17 @@ ColoringResult colorGraphFunc(Graph<Web> &graph, const int N, const std::string&
                 //Declare new ones
                 Web partA, partB;
 
-                int idA = nextAvailableId++;
-                int idB = nextAvailableId++;
+                //Easier Tracking Ids
+                //(but the same node can only be split 3 times, at the 4th it crashes)
+                int idA, idB;
+                if (victim.id<90000) {
+                    idA = 90000 + (victim.id * 100) + 1;
+                    idB = 90000 + (victim.id * 100) + 2;
+                }
+                else {
+                    idA = (victim.id * 100) + 1;
+                    idB = (victim.id * 100) + 2;
+                }
 
                 //split
                 if (!splitWebAtLargestGap(victim, partA, partB ,idA, idB)) {
