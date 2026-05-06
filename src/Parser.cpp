@@ -4,7 +4,22 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <algorithm>
+#include <cctype>
 // lê registers.txt
+
+namespace {
+    std::string trim(std::string s) {
+        auto notSpace = [](unsigned char c) {
+            return !std::isspace(c);
+        };
+
+        s.erase(s.begin(), std::find_if(s.begin(), s.end(), notSpace));
+        s.erase(std::find_if(s.rbegin(), s.rend(), notSpace).base(), s.end());
+
+        return s;
+    }
+}
 
 //  # comment line
 //  registers: 1
@@ -36,8 +51,8 @@ RegisterConfig parseRegistersFile(const std::string& filename) {
             continue;
         }
 
-        std::string key = line.substr(0, pos);
-        std::string value = line.substr(pos + 1);
+        std::string key = trim(line.substr(0, pos));
+        std::string value = trim(line.substr(pos + 1));
 
         if (key == "registers") {
             config.numRegisters = std::stoi(value);
@@ -45,12 +60,11 @@ RegisterConfig parseRegistersFile(const std::string& filename) {
             size_t commaPos = value.find(',');
 
             if (commaPos == std::string::npos) {
-                config.algorithm = value;
+                config.algorithm = trim(value);
                 config.parameter = 0;
-            }
-            else {
-                config.algorithm = value.substr(0, commaPos);
-                config.parameter = std::stoi(value.substr(commaPos + 1));
+            } else {
+                config.algorithm = trim(value.substr(0, commaPos));
+                config.parameter = std::stoi(trim(value.substr(commaPos + 1)));
             }
         }
 
@@ -91,13 +105,14 @@ std::vector<LiveRange> parseRangesFile(const std::string& filename) {
             continue;
         }
         LiveRange liveRange;
-        liveRange.variable = line.substr(0, colonPos);
+        liveRange.variable = trim(line.substr(0, colonPos));
         std::string pointsText = line.substr(colonPos + 1);
         std::stringstream ss(pointsText);
         std::string token;
 
 
         while(getline(ss, token, ',')) {
+            token = trim(token);
             ProgramPoint point;
             point.isStart = false;
             point.isEnd = false;

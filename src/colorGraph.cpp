@@ -226,7 +226,7 @@ ColoringResult colorGraphFunc(Graph<Web> &graph, const int N, const std::string&
             //se não foi changed e o nr de vertices ainda é maior que zero,
             //é porque não conseguimos separar as webs para as colorir
             //entrar em modo de contingências...
-            if (mode == " basic") {
+            if (mode == "basic"){
                 std::cerr<<"Assignment not feasible\n";
                 result.success=false;
                 return result;
@@ -250,7 +250,7 @@ ColoringResult colorGraphFunc(Graph<Web> &graph, const int N, const std::string&
                 toColorStack.push(victim);
 
             }
-            else if (mode == " splitting") {
+            else if (mode == "splitting") {
 
                 if (!findBestSplitCandidate(temp_graph, victim)) {
                     std::cerr << "Assignment not feasible: No splittable webs remaining in the deadlock.\n";
