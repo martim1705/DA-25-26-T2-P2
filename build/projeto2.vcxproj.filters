@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\src\Allocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\src\Parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\src\Web.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\src\InterferenceGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\src\colorGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\Allocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\Graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\Parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\Structures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\Web.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\InterferenceGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\colorGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{5C18103F-4F3F-3EC6-8ADC-A657459AE38D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{33785B87-9E02-3B40-8D17-DC424E8FD644}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
