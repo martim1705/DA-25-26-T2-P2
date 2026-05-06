@@ -4,11 +4,59 @@
 #include "Graph.h"
 #include "InterferenceGraph.h"
 #include "colorGraph.h"
-
+#include "Output.h"
 using namespace std;
 
-int main() {
+int main(int argc, char* argv[]) {
+    // Default file paths for testing via your IDE without arguments
+    string rangesFile = "../input/ranges.txt";
+    string registersFile = "../input/registers.txt";
+    string outputFile = "../output/allocation.txt";
 
+    // Handle command line arguments for batch mode [T1.1 requirement]
+    if (argc > 1) {
+        if (string(argv[1]) == "-b") {
+            // If -b is used, there MUST be exactly 5 arguments total:
+            // [0]prog [1]-b [2]ranges [3]registers [4]output
+            if (argc != 5) {
+                cerr << "Error: Incorrect number of arguments for batch mode.\n";
+                cerr << "Expected Usage: " << argv[0] << " -b <ranges.txt> <registers.txt> <output.txt>\n";
+                return 1; // Exit with error code
+            }
+            rangesFile = argv[2];
+            registersFile = argv[3];
+            outputFile = argv[4];
+        } else {
+            // Any other flag or usage is rejected
+            cerr << "Error: Invalid argument passed. Only batch mode (-b) is currently supported via CLI.\n";
+            cerr << "Expected Usage: " << argv[0] << " -b <ranges.txt> <registers.txt> <output.txt>\n";
+            return 1; // Exit with error code
+        }
+    }
+    // 1. Parse Input Data
+    RegisterConfig config = parseRegistersFile(registersFile);
+    vector<LiveRange> ranges = parseRangesFile(rangesFile);
+
+    // 2. Build Data Structures
+    vector<Web> webs = buildWebs(ranges);
+    Graph<Web> g = buildInterferenceGraph(webs);
+
+    // 3. Execute Allocation (Graph Coloring)
+    ColoringResult colorResult = colorGraphFunc(g, config.numRegisters, config.algorithm, config.parameter);
+
+    /* Extra error detection...
+    if (!colorResult.success) {
+        cerr << "Assignment not feasible for the given constraints.\n";
+    }
+    */
+
+    // 4. Output to File
+    writeOutputToFile(outputFile, webs, colorResult);
+
+    return 0;
+}
+
+/*
     // testing parser
     RegisterConfig config = parseRegistersFile("../input/registers");
     vector<LiveRange> ranges = parseRangesFile("../input/ranges");
@@ -60,50 +108,4 @@ int main() {
 
         std::cout << std::endl;
     }
-
-//Teste BasicColorGraph (T2.1)
-
-    const ColoringResult colorResult = colorGraphFunc(g, config.numRegisters, config.algorithm,config.parameter);
-
-    std::cout << "# Total number of registers used, followed by assignment to webs\n";
-
-    if (colorResult.success) {
-        int maxColorUsed = -1;
-        for (const auto& webID_color : colorResult.colorOfWeb) {
-            if (webID_color.second > maxColorUsed) {
-                maxColorUsed = webID_color.second;
-            }
-        }
-        const int registersUsed = maxColorUsed + 1;
-
-        std::cout << "registers: " << registersUsed << "\n";
-
-        /*for (const auto& web : webs) {
-            const int assignedColor = colorResult.colorOfWeb.at(web.id);
-            std::cout << "r" << assignedColor << ": web" << web.id << "\n";
-        }
-        */
-
-        for (const auto& webID_color:colorResult.colorOfWeb) {
-            int webId = webID_color.first;
-            int assignedColor = webID_color.second;
-
-            if (assignedColor==-1) {
-                std::cout << "M: web" << webId << "\n";
-            }
-            else {
-                std::cout << "r" << assignedColor << ": web" << webId << "\n";
-            }
-        }
-
-    } else {
-        std::cout << "registers: 0\n";
-
-        for (const auto& web : webs) {
-            std::cout << "M: web" << web.id << "\n";
-        }
-    }
-
-
-    return 0;
-}
+*/
