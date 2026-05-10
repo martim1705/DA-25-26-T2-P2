@@ -1,6 +1,22 @@
+/**
+ * @file InterferenceGraph.cpp
+ * @brief Implementation of live-web interference tests and graph construction.
+ */
+
 #include "InterferenceGraph.h"
 
 namespace {
+    /**
+     * @brief Checks the special boundary case where two webs touch but do not interfere.
+     *
+     * If one point only starts and the other only ends on the same line, the ending value can be
+     * read before the new value is written, so both values do not need different registers.
+     *
+     * @param a First program point.
+     * @param b Second program point.
+     * @return true if the two points form a start/end boundary.
+     * @complexity O(1).
+     */
     bool isStartEndBoundary(const ProgramPoint& a, const ProgramPoint& b) {
         const bool aOnlyStarts = a.isStart && !a.isEnd;
         const bool aOnlyEnds = a.isEnd && !a.isStart;

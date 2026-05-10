@@ -1,3 +1,8 @@
+/**
+ * @file Parser.cpp
+ * @brief Implementation of the project input parsers.
+ */
+
 #include "Parser.h"
 #include <iostream>
 #include <fstream>
@@ -9,6 +14,12 @@
 #include <stdexcept>
 
 namespace {
+    /**
+     * @brief Removes leading and trailing whitespace from a string.
+     * @param s String to trim.
+     * @return Trimmed copy of the input string.
+     * @complexity O(n), where n is the string length.
+     */
     std::string trim(std::string s) {
         auto notSpace = [](unsigned char c) { return !std::isspace(c); };
         s.erase(s.begin(), std::find_if(s.begin(), s.end(), notSpace));
@@ -16,6 +27,12 @@ namespace {
         return s;
     }
 
+    /**
+     * @brief Checks whether a line should be ignored by the parsers.
+     * @param line Input line.
+     * @return true for blank lines and comment lines starting with '#'.
+     * @complexity O(n), dominated by trimming the line.
+     */
     bool isCommentOrBlank(const std::string& line) {
         std::string t = trim(line);
         return t.empty() || t[0] == '#';

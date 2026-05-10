@@ -1,3 +1,8 @@
+/**
+ * @file Output.cpp
+ * @brief Implementation of the allocation output writer.
+ */
+
 #include "Output.h"
 #include <fstream>
 #include <iostream>

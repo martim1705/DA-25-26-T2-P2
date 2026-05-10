@@ -1,0 +1,37 @@
+# Doxygen configuration for DA Project 2.
+# Generate with: doxygen Doxyfile
+
+PROJECT_NAME           = "DA Project 2 - Register Allocation"
+PROJECT_BRIEF          = "Compiler register allocation through web construction, interference graphs and graph coloring"
+OUTPUT_DIRECTORY       = Documentation
+CREATE_SUBDIRS         = NO
+
+INPUT                  = include src README_UP_TO_2_4.md
+RECURSIVE              = YES
+FILE_PATTERNS          = *.h *.hpp *.cpp *.md
+USE_MDFILE_AS_MAINPAGE = README_UP_TO_2_4.md
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_LATEX         = NO
+
+JAVADOC_AUTOBRIEF      = YES
+QT_AUTOBRIEF           = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARN_NO_PARAMDOC       = NO
+
+# Project-specific command used throughout the comments.
+ALIASES               += "complexity=@par Time Complexity\n"
+
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+SKIP_FUNCTION_MACROS   = YES
+
+QUIET                  = NO

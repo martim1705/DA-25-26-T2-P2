@@ -1,6 +1,12 @@
+/**
+ * @file main.cpp
+ * @brief Command-line and interactive entry point for the register allocation tool.
+ */
+
 #include <iostream>
 #include <string>
 #include <vector>
+#include <limits>
 #include "Parser.h"
 #include "Web.h"
 #include "Graph.h"
@@ -11,10 +17,29 @@
 using namespace std;
 
 namespace {
+    /**
+     * @brief Checks whether an algorithm name is supported by the allocator.
+     * @param algorithm Algorithm name read from the configuration file.
+     * @return true for basic, spilling, splitting or free.
+     * @complexity O(1), because only four constant strings are compared.
+     */
     bool isKnownAlgorithm(const string& algorithm) {
         return algorithm == "basic" || algorithm == "spilling" || algorithm == "splitting" || algorithm == "free";
     }
 
+    /**
+     * @brief Executes the full pipeline from input files to allocation output.
+     *
+     * The pipeline parses both inputs, validates user parameters, builds webs, builds the interference
+     * graph, invokes the chosen coloring strategy and writes the final allocation file.
+     *
+     * @param rangesFile Path to the live-ranges input file.
+     * @param registersFile Path to the register configuration file.
+     * @param outputFile Path where the allocation output should be written.
+     * @return true if allocation succeeded, false if input validation or allocation failed.
+     * @complexity O(parse + W^2 * P^2 + allocation), where W is the number of webs and P is the
+     * maximum number of points per web.  The allocation term depends on the selected algorithm.
+     */
     bool runAllocation(const string& rangesFile, const string& registersFile, const string& outputFile) {
         RegisterConfig config = parseRegistersFile(registersFile);
         vector<LiveRange> ranges = parseRangesFile(rangesFile);
@@ -43,6 +68,11 @@ namespace {
         return colorResult.success;
     }
 
+    /**
+     * @brief Runs the simple interactive menu requested for the demo.
+     * @return Process exit code.
+     * @complexity Each allocation option has the complexity of runAllocation(); menu overhead is O(1).
+     */
     int interactiveMenu() {
         string rangesFile;
         string registersFile;
@@ -77,6 +107,17 @@ namespace {
     }
 }
 
+/**
+ * @brief Program entry point.
+ *
+ * With no arguments, launches the interactive menu.  In batch mode, expects the statement-compatible
+ * syntax `-b <ranges.txt> <registers.txt> <allocation.txt>`.
+ *
+ * @param argc Number of command-line arguments.
+ * @param argv Command-line argument vector.
+ * @return 0 on success, 1 on argument/menu errors and 2 when allocation is infeasible.
+ * @complexity O(runAllocation) in batch mode and O(number_of_menu_runs * runAllocation) in interactive mode.
+ */
 int main(int argc, char* argv[]) {
     if (argc == 1) {
         return interactiveMenu();

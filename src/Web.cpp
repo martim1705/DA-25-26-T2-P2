@@ -1,9 +1,24 @@
+/**
+ * @file Web.cpp
+ * @brief Implementation of live-web construction and range-intersection helpers.
+ */
+
 #include "Web.h"
 #include <vector>
 #include <map>
 #include <algorithm>
 
 namespace {
+    /**
+     * @brief Sorts, de-duplicates and normalizes the points of a web.
+     *
+     * Duplicate points on the same line are merged by OR-ing their start/end markers.  If both
+     * markers are present after merging, the point is treated as an interior point because the
+     * statement joins an ending and starting range of the same variable.
+     *
+     * @param web Web whose points will be normalized in place.
+     * @complexity O(Q log Q), where Q is the number of points currently stored in the web.
+     */
     void normalizeWebPoints(Web& web) {
         std::sort(web.points.begin(), web.points.end(), [](const ProgramPoint& a, const ProgramPoint& b) {
             if (a.line != b.line) return a.line < b.line;
@@ -41,7 +56,7 @@ std::vector<Web> buildWebs(const std::vector<LiveRange>& ranges) {
     }
 
     std::vector<Web> webs;
-    int nextWebId = 0;
+    int nextId = 0;
 
     for (auto& [variable, varRanges] : groupedRanges) {
         std::vector<bool> used(varRanges.size(), false);
@@ -50,7 +65,7 @@ std::vector<Web> buildWebs(const std::vector<LiveRange>& ranges) {
             if (used[i]) continue;
 
             Web web;
-            web.id = nextWebId++;
+            web.id = nextId++;
             web.variable = variable;
             web.points = varRanges[i].points;
             used[i] = true;

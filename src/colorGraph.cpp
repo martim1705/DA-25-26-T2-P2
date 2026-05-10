@@ -1,3 +1,8 @@
+/**
+ * @file colorGraph.cpp
+ * @brief Register allocation algorithms based on graph coloring, spilling and splitting.
+ */
+
 #include "colorGraph.h"
 #include "InterferenceGraph.h"
 #include <algorithm>
@@ -12,12 +17,18 @@
 #include <vector>
 
 namespace {
+    /**
+     * @brief Internal result of a single coloring attempt.
+     */
     struct AllocationAttempt {
         bool success = false;
         std::unordered_map<int, int> colors;
         int registersUsed = 0;
     };
 
+    /**
+     * @brief Candidate split and its predicted graph-quality metrics.
+     */
     struct SplitCandidate {
         bool valid = false;
         int webId = -1;
@@ -27,6 +38,12 @@ namespace {
         int originalDegree = 0;
     };
 
+    /**
+     * @brief Extracts webs from a graph in deterministic id order.
+     * @param graph Interference graph.
+     * @return Sorted vector of vertex webs.
+     * @complexity O(V log V), where V is the number of vertices.
+     */
     std::vector<Web> graphWebs(const Graph<Web>& graph) {
         std::vector<Web> webs;
         for (auto vertex : graph.getVertexSet()) {
@@ -36,12 +53,24 @@ namespace {
         return webs;
     }
 
+    /**
+     * @brief Finds the largest web identifier in a vector.
+     * @param webs Web collection.
+     * @return Maximum id, or -1 for an empty vector.
+     * @complexity O(V).
+     */
     int maxWebId(const std::vector<Web>& webs) {
         int maxId = -1;
         for (const auto& web : webs) maxId = std::max(maxId, web.id);
         return maxId;
     }
 
+    /**
+     * @brief Counts undirected interference edges in a bidirectional graph.
+     * @param graph Interference graph.
+     * @return Number of undirected edges.
+     * @complexity O(V + E), counting directed adjacency entries.
+     */
     int edgeCount(const Graph<Web>& graph) {
         int directed = 0;
         for (auto vertex : graph.getVertexSet()) {
@@ -50,6 +79,12 @@ namespace {
         return directed / 2;
     }
 
+    /**
+     * @brief Computes the maximum degree of the graph.
+     * @param graph Interference graph.
+     * @return Maximum adjacency-list size among vertices.
+     * @complexity O(V).
+     */
     int maxDegree(const Graph<Web>& graph) {
         int best = 0;
         for (auto vertex : graph.getVertexSet()) {
@@ -58,10 +93,23 @@ namespace {
         return best;
     }
 
+    /**
+     * @brief Gets the number of program points in a web.
+     * @param web Web to inspect.
+     * @return Number of points.
+     * @complexity O(1).
+     */
     int webLength(const Web& web) {
         return static_cast<int>(web.points.size());
     }
 
+    /**
+     * @brief Builds an interference graph excluding spilled webs.
+     * @param webs Original web collection.
+     * @param spilled Set of web ids to remove.
+     * @return Interference graph over the remaining webs.
+     * @complexity O(V log S + V^2 * P^2), where S is the number of spilled ids and P is the maximum web size.
+     */
     Graph<Web> graphWithoutSpilled(const std::vector<Web>& webs, const std::set<int>& spilled) {
         std::vector<Web> kept;
         for (const auto& web : webs) {
@@ -70,6 +118,13 @@ namespace {
         return buildInterferenceGraph(kept);
     }
 
+    /**
+     * @brief Validates that no adjacent non-spilled webs share the same color.
+     * @param graph Interference graph.
+     * @param colors Web-id to register mapping.
+     * @return true if a conflict exists.
+     * @complexity O(V + E) average-case, assuming unordered_map lookup is O(1).
+     */
     bool hasInterferenceConflict(const Graph<Web>& graph, const std::unordered_map<int, int>& colors) {
         for (auto vertex : graph.getVertexSet()) {
             int id = vertex->getInfo().id;
@@ -87,6 +142,18 @@ namespace {
         return false;
     }
 
+    /**
+     * @brief Tries to color a graph with a fixed number of colors using simplification and optimistic coloring.
+     *
+     * Vertices with degree below colorCount are removed first.  When none exists, the current
+     * highest-degree vertex is pushed optimistically and the final coloring phase determines whether
+     * that choice was safe.
+     *
+     * @param originalGraph Graph to color.
+     * @param colorCount Number of colors/registers to try.
+     * @return AllocationAttempt with success=false if no valid assignment is found.
+     * @complexity O(V^2 + E) for one fixed color count, dominated by repeated vertex scans and removals.
+     */
     AllocationAttempt simplifyAndColor(const Graph<Web>& originalGraph, int colorCount) {
         AllocationAttempt attempt;
         if (colorCount <= 0) return attempt;
@@ -162,6 +229,13 @@ namespace {
         return attempt;
     }
 
+    /**
+     * @brief Runs simplification coloring from one register up to the register limit.
+     * @param graph Graph to color.
+     * @param maxRegisters Maximum number of colors allowed.
+     * @return First successful attempt, or failure if none succeeds.
+     * @complexity O(C * (V^2 + E)), where C is maxRegisters.
+     */
     AllocationAttempt tryBasicUpTo(const Graph<Web>& graph, int maxRegisters) {
         for (int colors = 1; colors <= maxRegisters; colors++) {
             AllocationAttempt attempt = simplifyAndColor(graph, colors);
@@ -170,6 +244,14 @@ namespace {
         return AllocationAttempt{};
     }
 
+    /**
+     * @brief Packs a public coloring result from internal data.
+     * @param success Whether allocation succeeded.
+     * @param webs Webs to expose as the final web set.
+     * @param colors Web-id to register mapping.
+     * @return ColoringResult ready for output.
+     * @complexity O(V + A), copying webs and assignments.
+     */
     ColoringResult makeResult(bool success, const std::vector<Web>& webs, const std::unordered_map<int, int>& colors) {
         ColoringResult result;
         result.success = success;
@@ -178,6 +260,13 @@ namespace {
         return result;
     }
 
+    /**
+     * @brief Performs basic register allocation by building the graph and coloring it.
+     * @param webs Webs to allocate.
+     * @param maxRegisters Maximum registers available.
+     * @return Successful coloring result or an infeasible result.
+     * @complexity O(V^2 * P^2 + C * (V^2 + E)).
+     */
     ColoringResult basicAllocation(const std::vector<Web>& webs, int maxRegisters) {
         Graph<Web> graph = buildInterferenceGraph(webs);
         AllocationAttempt attempt = tryBasicUpTo(graph, maxRegisters);
@@ -185,6 +274,13 @@ namespace {
         return makeResult(true, webs, attempt.colors);
     }
 
+    /**
+     * @brief Creates a vector without the selected web ids.
+     * @param webs Original web vector.
+     * @param idsToRemove Web ids to omit.
+     * @return Filtered web vector.
+     * @complexity O(V log R), where R is the number of ids to remove.
+     */
     std::vector<Web> removeWebs(const std::vector<Web>& webs, const std::set<int>& idsToRemove) {
         std::vector<Web> kept;
         for (const auto& web : webs) {
@@ -193,6 +289,14 @@ namespace {
         return kept;
     }
 
+    /**
+     * @brief Tries allocation after forcing a specific set of webs to memory.
+     * @param webs Original web vector.
+     * @param maxRegisters Maximum registers available.
+     * @param spilled Web ids forced to memory.
+     * @return Coloring result with spilled webs marked as -1, or failure.
+     * @complexity O(V log S + V^2 * P^2 + C * (V^2 + E)).
+     */
     ColoringResult trySpillSet(const std::vector<Web>& webs, int maxRegisters, const std::set<int>& spilled) {
         std::vector<Web> kept = removeWebs(webs, spilled);
         Graph<Web> reducedGraph = buildInterferenceGraph(kept);
@@ -212,6 +316,12 @@ namespace {
         return makeResult(true, webs, attempt.colors);
     }
 
+    /**
+     * @brief Orders spill candidates by descending degree, then descending web length.
+     * @param graph Current interference graph.
+     * @return Webs sorted from most attractive to least attractive spill candidate.
+     * @complexity O(V log V * V) because each comparator may search graph vertices by value.
+     */
     std::vector<Web> spillCandidatesByHeuristic(const Graph<Web>& graph) {
         std::vector<Web> candidates = graphWebs(graph);
         std::sort(candidates.begin(), candidates.end(), [&graph](const Web& a, const Web& b) {
@@ -226,6 +336,19 @@ namespace {
         return candidates;
     }
 
+    /**
+     * @brief Performs allocation with bounded web spilling.
+     *
+     * The algorithm first tries the basic allocator.  If it fails, it searches spill sets of size
+     * 1, then 2, and so on up to spillBudget.  A cap limits the number of tested
+     * combinations for larger instances.
+     *
+     * @param webs Webs to allocate.
+     * @param maxRegisters Maximum registers available.
+     * @param spillBudget Maximum number of webs that may be moved to memory.
+     * @return Coloring result with spilled webs marked as memory, or failure.
+     * @complexity O(sum_{i=1..K} binom(V,i) * (V^2 * P^2 + C * (V^2 + E))) before the configured search cap.
+     */
     ColoringResult spillingAllocation(const std::vector<Web>& webs, int maxRegisters, int spillBudget) {
         ColoringResult basic = basicAllocation(webs, maxRegisters);
         if (basic.success) return basic;
@@ -273,12 +396,27 @@ namespace {
         return makeResult(false, webs, {});
     }
 
+    /**
+     * @brief Sorts a web's program points by line number.
+     * @param web Web to sort in place.
+     * @complexity O(Q log Q), where Q is the number of points in the web.
+     */
     void sortWebPoints(Web& web) {
         std::sort(web.points.begin(), web.points.end(), [](const ProgramPoint& a, const ProgramPoint& b) {
             return a.line < b.line;
         });
     }
 
+    /**
+     * @brief Splits a web into two consecutive derived webs.
+     * @param original Web to split.
+     * @param splitIndex Last point index kept in the left web.
+     * @param newId Identifier assigned to the right derived web.
+     * @param left Output left derived web.
+     * @param right Output right derived web.
+     * @return true if the split is valid.
+     * @complexity O(Q), where Q is the number of points copied from the original web.
+     */
     bool splitWeb(const Web& original, size_t splitIndex, int newId, Web& left, Web& right) {
         if (original.points.size() < 2 || splitIndex >= original.points.size() - 1) return false;
 
@@ -292,6 +430,15 @@ namespace {
         return true;
     }
 
+    /**
+     * @brief Replaces one web in a collection with the two webs produced by a split.
+     * @param webs Current web collection.
+     * @param webId Identifier of the web to split.
+     * @param splitIndex Split boundary passed to splitWeb().
+     * @param newId Identifier assigned to the new right-hand web.
+     * @return Updated web collection sorted by id.
+     * @complexity O(V log V + Q), where Q is the point count of the split web.
+     */
     std::vector<Web> replaceWithSplit(const std::vector<Web>& webs, int webId, size_t splitIndex, int newId) {
         std::vector<Web> result;
         for (const auto& web : webs) {
@@ -311,6 +458,16 @@ namespace {
         return result;
     }
 
+    /**
+     * @brief Chooses the best heuristic split for the current web set.
+     *
+     * Each possible split is tested by rebuilding the interference graph.  Candidates are ranked by
+     * resulting edge count, resulting maximum degree, original degree and web id.
+     *
+     * @param webs Current web set.
+     * @return Best candidate, or an invalid candidate if no split can be made.
+     * @complexity O(S * (V^2 * P^2 + V^2)), where S is the number of tested split positions.
+     */
     SplitCandidate chooseSplitCandidate(const std::vector<Web>& webs) {
         Graph<Web> currentGraph = buildInterferenceGraph(webs);
         SplitCandidate best;
@@ -346,6 +503,18 @@ namespace {
         return best;
     }
 
+    /**
+     * @brief Performs allocation with bounded heuristic web splitting.
+     *
+     * Basic allocation is attempted first.  If it fails, the algorithm repeatedly selects the split
+     * that most reduces interference according to edge count and maximum degree, then rebuilds the graph.
+     *
+     * @param originalWebs Webs to allocate.
+     * @param maxRegisters Maximum registers available.
+     * @param splitBudget Maximum number of webs to split.
+     * @return Coloring result over the possibly split web set, or failure.
+     * @complexity O(K * S * (V^2 * P^2) + K * C * (V^2 + E)), where K is splitBudget.
+     */
     ColoringResult splittingAllocation(const std::vector<Web>& originalWebs, int maxRegisters, int splitBudget) {
         ColoringResult basic = basicAllocation(originalWebs, maxRegisters);
         if (basic.success) return basic;
@@ -364,6 +533,12 @@ namespace {
         return makeResult(false, originalWebs, {});
     }
 
+    /**
+     * @brief Extracts web identifiers from a graph in sorted order.
+     * @param graph Interference graph.
+     * @return Sorted vector of web ids.
+     * @complexity O(V log V).
+     */
     std::vector<int> graphIds(const Graph<Web>& graph) {
         std::vector<int> ids;
         for (auto vertex : graph.getVertexSet()) ids.push_back(vertex->getInfo().id);
@@ -371,6 +546,12 @@ namespace {
         return ids;
     }
 
+    /**
+     * @brief Converts the graph adjacency lists to an id-based adjacency map.
+     * @param graph Interference graph.
+     * @return Mapping from web id to sorted neighboring web ids.
+     * @complexity O(V + E log D), where D is the maximum degree.
+     */
     std::unordered_map<int, std::set<int>> adjacencyById(const Graph<Web>& graph) {
         std::unordered_map<int, std::set<int>> adj;
         for (auto vertex : graph.getVertexSet()) {
@@ -383,6 +564,21 @@ namespace {
         return adj;
     }
 
+    /**
+     * @brief Recursive DSATUR coloring search with a call limit.
+     *
+     * The next vertex is chosen by maximum saturation degree, then ordinary degree, then id.
+     * Backtracking tries every still-available color until a complete assignment is found.
+     *
+     * @param ids Sorted web ids still considered by the graph.
+     * @param adj Id-based adjacency map.
+     * @param colorLimit Number of colors/registers allowed.
+     * @param colors Partial assignment updated in place.
+     * @param calls Number of recursive calls already performed.
+     * @param callLimit Hard cap on recursive calls.
+     * @return true if a full coloring was found before the cap.
+     * @complexity Exponential in V in the worst case, with each call scanning vertices and neighbors.
+     */
     bool dsaturBacktrack(const std::vector<int>& ids,
                          const std::unordered_map<int, std::set<int>>& adj,
                          int colorLimit,
@@ -438,6 +634,13 @@ namespace {
         return false;
     }
 
+    /**
+     * @brief Attempts exact DSATUR coloring with a fixed color count.
+     * @param graph Interference graph.
+     * @param colorLimit Number of colors/registers to try.
+     * @return Successful allocation attempt, or failure if no coloring is found before the cap.
+     * @complexity Exponential in V in the worst case, bounded in practice by the call limit.
+     */
     AllocationAttempt dsaturColor(const Graph<Web>& graph, int colorLimit) {
         AllocationAttempt attempt;
         if (colorLimit <= 0) return attempt;
@@ -458,6 +661,13 @@ namespace {
         return attempt;
     }
 
+    /**
+     * @brief Runs DSATUR from one register up to the register limit.
+     * @param graph Graph to color.
+     * @param maxRegisters Maximum colors available.
+     * @return First exact DSATUR coloring found, or failure.
+     * @complexity Exponential in V in the worst case, repeated for at most C register counts.
+     */
     AllocationAttempt tryDsaturUpTo(const Graph<Web>& graph, int maxRegisters) {
         for (int colors = 1; colors <= maxRegisters; colors++) {
             AllocationAttempt attempt = dsaturColor(graph, colors);
@@ -466,6 +676,13 @@ namespace {
         return AllocationAttempt{};
     }
 
+    /**
+     * @brief Custom allocation strategy based on DSATUR with automatic spilling fallback.
+     * @param webs Webs to allocate.
+     * @param maxRegisters Maximum registers available.
+     * @return Exact coloring if possible; otherwise a coloring with the fewest found spilled webs.
+     * @complexity Exponential in V for DSATUR and, on failure, exponential in the number of spill combinations before the search cap.
+     */
     ColoringResult freeAllocation(const std::vector<Web>& webs, int maxRegisters) {
         Graph<Web> graph = buildInterferenceGraph(webs);
         AllocationAttempt exact = tryDsaturUpTo(graph, maxRegisters);
