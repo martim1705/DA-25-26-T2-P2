@@ -1,111 +1,96 @@
 #include <iostream>
+#include <string>
+#include <vector>
 #include "Parser.h"
 #include "Web.h"
 #include "Graph.h"
 #include "InterferenceGraph.h"
 #include "colorGraph.h"
 #include "Output.h"
+
 using namespace std;
 
-int main(int argc, char* argv[]) {
-    // Default file paths for testing via your IDE without arguments
-    string rangesFile = "../input/ranges.txt";
-    string registersFile = "../input/registers.txt";
-    string outputFile = "../output/allocation.txt";
+namespace {
+    bool isKnownAlgorithm(const string& algorithm) {
+        return algorithm == "basic" || algorithm == "spilling" || algorithm == "splitting" || algorithm == "free";
+    }
 
-    // Handle command line arguments for batch mode [T1.1 requirement]
-    if (argc > 1) {
-        if (string(argv[1]) == "-b") {
-            // If -b is used, there MUST be exactly 5 arguments total:
-            // [0]prog [1]-b [2]ranges [3]registers [4]output
-            if (argc != 5) {
-                cerr << "Error: Incorrect number of arguments for batch mode.\n";
-                cerr << "Expected Usage: " << argv[0] << " -b <ranges.txt> <registers.txt> <output.txt>\n";
-                return 1; // Exit with error code
+    bool runAllocation(const string& rangesFile, const string& registersFile, const string& outputFile) {
+        RegisterConfig config = parseRegistersFile(registersFile);
+        vector<LiveRange> ranges = parseRangesFile(rangesFile);
+
+        if (ranges.empty()) {
+            cerr << "Error: no valid live ranges were loaded.\n";
+            return false;
+        }
+        if (config.numRegisters <= 0) {
+            cerr << "Error: register count must be positive.\n";
+            return false;
+        }
+        if (!isKnownAlgorithm(config.algorithm)) {
+            cerr << "Error: unknown algorithm '" << config.algorithm << "'. Expected basic, spilling, splitting or free.\n";
+            return false;
+        }
+        if ((config.algorithm == "spilling" || config.algorithm == "splitting") && config.parameter <= 0) {
+            cerr << "Error: " << config.algorithm << " requires a positive numeric parameter.\n";
+            return false;
+        }
+
+        vector<Web> webs = buildWebs(ranges);
+        Graph<Web> graph = buildInterferenceGraph(webs);
+        ColoringResult colorResult = colorGraphFunc(graph, config.numRegisters, config.algorithm, config.parameter);
+        writeOutputToFile(outputFile, webs, colorResult);
+        return colorResult.success;
+    }
+
+    int interactiveMenu() {
+        string rangesFile;
+        string registersFile;
+        string outputFile;
+
+        while (true) {
+            cout << "\nRegister Allocation Tool\n";
+            cout << "1. Run allocation\n";
+            cout << "0. Exit\n";
+            cout << "Option: ";
+
+            int option = -1;
+            if (!(cin >> option)) return 1;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            if (option == 0) return 0;
+            if (option != 1) {
+                cout << "Invalid option.\n";
+                continue;
             }
-            rangesFile = argv[2];
-            registersFile = argv[3];
-            outputFile = argv[4];
-        } else {
-            // Any other flag or usage is rejected
-            cerr << "Error: Invalid argument passed. Only batch mode (-b) is currently supported via CLI.\n";
-            cerr << "Expected Usage: " << argv[0] << " -b <ranges.txt> <registers.txt> <output.txt>\n";
-            return 1; // Exit with error code
+
+            cout << "Ranges file: ";
+            getline(cin, rangesFile);
+            cout << "Registers file: ";
+            getline(cin, registersFile);
+            cout << "Output file: ";
+            getline(cin, outputFile);
+
+            bool success = runAllocation(rangesFile, registersFile, outputFile);
+            cout << (success ? "Allocation completed.\n" : "Allocation finished with infeasibility/errors.\n");
         }
     }
-    // 1. Parse Input Data
-    RegisterConfig config = parseRegistersFile(registersFile);
-    vector<LiveRange> ranges = parseRangesFile(rangesFile);
-
-    // 2. Build Data Structures
-    vector<Web> webs = buildWebs(ranges);
-    Graph<Web> g = buildInterferenceGraph(webs);
-
-    // 3. Execute Allocation (Graph Coloring)
-    ColoringResult colorResult = colorGraphFunc(g, config.numRegisters, config.algorithm, config.parameter);
-
-    /* Extra error detection...
-    if (!colorResult.success) {
-        cerr << "Assignment not feasible for the given constraints.\n";
-    }
-    */
-
-    // 4. Output to File
-    writeOutputToFile(outputFile, webs, colorResult);
-
-    return 0;
 }
 
-/*
-    // testing parser
-    RegisterConfig config = parseRegistersFile("../input/registers");
-    vector<LiveRange> ranges = parseRangesFile("../input/ranges");
-
-    for (const LiveRange& range : ranges) {
-        cout << "Variable: " << range.variable << endl;
-
-        for (const ProgramPoint& p : range.points) {
-            cout << p.line;
-            if (p.isStart) cout << "+";
-            if (p.isEnd) cout << "-";
-            cout << " ";
-        }
-
-        cout << endl << endl;
-    }
-    cout << "Registers: " << config.numRegisters << endl;
-    cout << "Algorithm: " << config.algorithm << endl;
-    cout << "Parameter: " << config.parameter << endl;
-
-
-// testing buildWebs
-    std::vector<Web> webs = buildWebs(ranges);
-
-    for (const Web& w : webs) {
-        std::cout << "Web " << w.id << " (" << w.variable << "): ";
-
-        for (const ProgramPoint& p : w.points) {
-            std::cout << p.line;
-            if (p.isStart) std::cout << "+";
-            if (p.isEnd) std::cout << "-";
-            std::cout << " ";
-        }
-
-        std::cout << std::endl;
+int main(int argc, char* argv[]) {
+    if (argc == 1) {
+        return interactiveMenu();
     }
 
-
-// teste InterferenceGraph
-
-    Graph<Web> g = buildInterferenceGraph(webs);
-
-    for (auto v : g.getVertexSet()) {
-        std::cout << "Web " << v->getInfo().id << " -> ";
-
-        for (auto e : v->getAdj()) {
-            std::cout << "Web " << e->getDest()->getInfo().id << " ";
-        }
-
-        std::cout << std::endl;
+    if (string(argv[1]) != "-b" || argc != 5) {
+        cerr << "Error: invalid arguments.\n";
+        cerr << "Usage: " << argv[0] << " -b <ranges.txt> <registers.txt> <allocation.txt>\n";
+        return 1;
     }
-*/
+
+    const string rangesFile = argv[2];
+    const string registersFile = argv[3];
+    const string outputFile = argv[4];
+
+    return runAllocation(rangesFile, registersFile, outputFile) ? 0 : 2;
+}

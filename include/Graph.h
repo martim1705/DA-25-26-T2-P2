@@ -103,6 +103,9 @@ protected:
 template <class T>
 class Graph {
 public:
+    Graph() = default;
+    Graph(const Graph<T>& other);
+    Graph<T>& operator=(const Graph<T>& other);
     ~Graph();
     //needed to add a clear function - Joao Leppanen
     void clear();
@@ -445,9 +448,12 @@ void Graph<T>::clear() {
     distMatrix = nullptr;
     pathMatrix = nullptr;
 
-    // Delete all edges and vertices
+    // Delete all edges before deleting vertices.  This matters because
+    // deleteEdge updates the destination vertex incoming list.
     for (auto v : vertexSet) {
         v->removeOutgoingEdges();
+    }
+    for (auto v : vertexSet) {
         delete v;
     }
 
@@ -467,6 +473,11 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
+    for (auto edge : v1->getAdj()) {
+        if (edge->getDest()->getInfo() == dest) {
+            return false;
+        }
+    }
     v1->addEdge(v2, w);
     return true;
 }
@@ -491,10 +502,23 @@ bool Graph<T>::addBidirectionalEdge(const T &sourc, const T &dest, double w) {
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
-    auto e1 = v1->addEdge(v2, w);
-    auto e2 = v2->addEdge(v1, w);
-    e1->setReverse(e2);
-    e2->setReverse(e1);
+    bool existsForward = false;
+    bool existsReverse = false;
+    for (auto edge : v1->getAdj()) {
+        if (edge->getDest()->getInfo() == dest) existsForward = true;
+    }
+    for (auto edge : v2->getAdj()) {
+        if (edge->getDest()->getInfo() == sourc) existsReverse = true;
+    }
+    if (existsForward && existsReverse) return false;
+    Edge<T>* e1 = nullptr;
+    Edge<T>* e2 = nullptr;
+    if (!existsForward) e1 = v1->addEdge(v2, w);
+    if (!existsReverse) e2 = v2->addEdge(v1, w);
+    if (e1 != nullptr && e2 != nullptr) {
+        e1->setReverse(e2);
+        e2->setReverse(e1);
+    }
     return true;
 }
 
@@ -517,9 +541,35 @@ inline void deleteMatrix(double **m, int n) {
 }
 
 template <class T>
+Graph<T>::Graph(const Graph<T>& other) {
+    for (auto v : other.vertexSet) {
+        addVertex(v->getInfo());
+    }
+    for (auto v : other.vertexSet) {
+        for (auto edge : v->getAdj()) {
+            addEdge(v->getInfo(), edge->getDest()->getInfo(), edge->getWeight());
+        }
+    }
+}
+
+template <class T>
+Graph<T>& Graph<T>::operator=(const Graph<T>& other) {
+    if (this == &other) return *this;
+    clear();
+    for (auto v : other.vertexSet) {
+        addVertex(v->getInfo());
+    }
+    for (auto v : other.vertexSet) {
+        for (auto edge : v->getAdj()) {
+            addEdge(v->getInfo(), edge->getDest()->getInfo(), edge->getWeight());
+        }
+    }
+    return *this;
+}
+
+template <class T>
 Graph<T>::~Graph() {
-    deleteMatrix(distMatrix, vertexSet.size());
-    deleteMatrix(pathMatrix, vertexSet.size());
+    clear();
 }
 
 #endif //PROJETO2_GRAPH_H
