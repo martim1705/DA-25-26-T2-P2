@@ -23,3 +23,13 @@ add_executable(projeto2
         src/InterferenceGraph.cpp
         src/colorGraph.cpp
         src/Output.cpp)
+
+
+find_package(Doxygen QUIET)
+if(DOXYGEN_FOUND)
+    add_custom_target(doc
+            COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_SOURCE_DIR}/Doxyfile
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            COMMENT "Generating Doxygen HTML documentation in Documentation/html"
+            VERBATIM)
+endif()

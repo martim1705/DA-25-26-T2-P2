@@ -1,87 +1,89 @@
-// build web
-// For each variable:
-//      Joins ranges that intersect each other
-//      Creates a web for each group
+/**
+ * @file Web.cpp
+ * @brief Implementation of live-web construction and range-intersection helpers.
+ */
+
 #include "Web.h"
 #include <vector>
-#include <iostream>
-#include <unordered_map>
+#include <map>
 #include <algorithm>
 
-std::vector<Web> buildWebs(const std::vector<LiveRange>& ranges) {
-    std::unordered_map<std::string, std::vector<LiveRange>> group;
+namespace {
+    /**
+     * @brief Sorts, de-duplicates and normalizes the points of a web.
+     *
+     * Duplicate points on the same line are merged by OR-ing their start/end markers.  If both
+     * markers are present after merging, the point is treated as an interior point because the
+     * statement joins an ending and starting range of the same variable.
+     *
+     * @param web Web whose points will be normalized in place.
+     * @complexity O(Q log Q), where Q is the number of points currently stored in the web.
+     */
+    void normalizeWebPoints(Web& web) {
+        std::sort(web.points.begin(), web.points.end(), [](const ProgramPoint& a, const ProgramPoint& b) {
+            if (a.line != b.line) return a.line < b.line;
+            if (a.isStart != b.isStart) return a.isStart > b.isStart;
+            return a.isEnd > b.isEnd;
+        });
 
+        std::vector<ProgramPoint> cleanPoints;
+        for (const auto& p : web.points) {
+            if (cleanPoints.empty() || cleanPoints.back().line != p.line) {
+                cleanPoints.push_back(p);
+            } else {
+                cleanPoints.back().isStart = cleanPoints.back().isStart || p.isStart;
+                cleanPoints.back().isEnd = cleanPoints.back().isEnd || p.isEnd;
+            }
+        }
+
+        // When a live range of the same variable ends and another begins at the
+        // same instruction, the assignment requires us to fuse the ranges and
+        // treat that point as a normal interior point of the resulting web.
+        for (auto& p : cleanPoints) {
+            if (p.isStart && p.isEnd) {
+                p.isStart = false;
+                p.isEnd = false;
+            }
+        }
+        web.points = cleanPoints;
+    }
+}
+
+std::vector<Web> buildWebs(const std::vector<LiveRange>& ranges) {
+    std::map<std::string, std::vector<LiveRange>> groupedRanges;
     for (const auto& range : ranges) {
-        group[range.variable].push_back(range);
+        groupedRanges[range.variable].push_back(range);
     }
 
     std::vector<Web> webs;
-    int nextWebId = 0;
+    int nextId = 0;
 
-    for (auto& [var, varRanges] : group) {
+    for (auto& [variable, varRanges] : groupedRanges) {
         std::vector<bool> used(varRanges.size(), false);
 
         for (size_t i = 0; i < varRanges.size(); i++) {
             if (used[i]) continue;
 
             Web web;
-            web.id = nextWebId++;
-            web.variable = var;
+            web.id = nextId++;
+            web.variable = variable;
             web.points = varRanges[i].points;
-
             used[i] = true;
 
             bool changed = true;
-
             while (changed) {
                 changed = false;
-
                 for (size_t j = 0; j < varRanges.size(); j++) {
                     if (used[j]) continue;
-
                     if (intersects(web, varRanges[j])) {
-                        for (const ProgramPoint& p : varRanges[j].points) {
-                            web.points.push_back(p);
-                        }
-
+                        web.points.insert(web.points.end(), varRanges[j].points.begin(), varRanges[j].points.end());
                         used[j] = true;
                         changed = true;
                     }
                 }
             }
 
-            //Tratamento do vector. (Para o output ser correcto, logicamente já funcionava isto).
-            // 1. Ordenar os pontos por ordem crescente
-            std::sort(web.points.begin(), web.points.end(), [](const ProgramPoint& a, const ProgramPoint& b) {
-                return a.line < b.line;
-            });
-
-            //remove duplicados adicionando apenas nrs diferentes, e se já existirem apenas adiciona start e end flags
-            std::vector<ProgramPoint> cleanPoints;
-            for (const auto& p : web.points) {
-                if (cleanPoints.empty() || cleanPoints.back().line != p.line) {
-                    // new number
-                    cleanPoints.push_back(p);
-                } else {
-                    // repeat!
-                    cleanPoints.back().isStart = cleanPoints.back().isStart || p.isStart;
-                    cleanPoints.back().isEnd = cleanPoints.back().isEnd || p.isEnd;
-                }
-            }
-
-            // End e Start n podem coexistir
-            // Isto está num loop extra final para ter a certeza que novas branchs, com um mesmo nr, n provoquem inclusao de sinal a remover.
-            for (auto& p : cleanPoints) {
-                if (p.isStart && p.isEnd) {
-                    p.isStart = false;
-                    p.isEnd = false;
-                }
-            }
-
-            //Replace it
-            web.points = cleanPoints;
-
-
+            normalizeWebPoints(web);
             webs.push_back(web);
         }
     }
@@ -95,11 +97,8 @@ bool sameLine(const ProgramPoint& a, const ProgramPoint& b) {
 
 bool intersects(const LiveRange& a, const LiveRange& b) {
     for (const ProgramPoint& p1 : a.points) {
-        for (const ProgramPoint &p2: b.points) {
-            if (sameLine(p1, p2)) {
-                return true;
-            }
-
+        for (const ProgramPoint& p2 : b.points) {
+            if (sameLine(p1, p2)) return true;
         }
     }
     return false;
@@ -107,11 +106,8 @@ bool intersects(const LiveRange& a, const LiveRange& b) {
 
 bool intersects(const Web& web, const LiveRange& range) {
     for (const ProgramPoint& p1 : web.points) {
-        for (const ProgramPoint &p2: range.points) {
-            if (sameLine(p1, p2)) {
-                return true;
-            }
-
+        for (const ProgramPoint& p2 : range.points) {
+            if (sameLine(p1, p2)) return true;
         }
     }
     return false;
