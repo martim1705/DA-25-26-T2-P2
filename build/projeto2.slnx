@@ -16,6 +16,13 @@
 		<Build Solution="RelWithDebInfo|*" Project="false"/>
 	</Project>
 	<Project Path="ZERO_CHECK.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="ac74a5e2-3cb3-3db4-961e-d4923ce5ed2d"/>
+	<Project Path="doc.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="510b31ec-ce31-349f-8fdd-c1febe24fa05">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<Build Solution="Debug|*" Project="false"/>
+		<Build Solution="Release|*" Project="false"/>
+		<Build Solution="MinSizeRel|*" Project="false"/>
+		<Build Solution="RelWithDebInfo|*" Project="false"/>
+	</Project>
 	<Project Path="projeto2.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="9a1cad55-bd62-33d9-a5ef-48e928060b7e">
 		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
 	</Project>

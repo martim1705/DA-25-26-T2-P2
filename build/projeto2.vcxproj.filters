@@ -19,6 +19,9 @@
     <ClCompile Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\src\colorGraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\src\Output.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\Allocator.h">
@@ -40,6 +43,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\colorGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\Output.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
