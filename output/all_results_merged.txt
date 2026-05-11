@@ -1,6 +1,6 @@
 MASTER TEST LOG
 ==========================================
-FILE: out_rg1_basic_r1.txt
+FILE: out_ranges1_basic_r1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -16,7 +16,7 @@ M: web2
 
 ==========================================
 
-FILE: out_rg1_basic_r2.txt
+FILE: out_ranges1_basic_r2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -32,7 +32,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_basic_r3.txt
+FILE: out_ranges1_basic_r3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -48,7 +48,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_spill_r1_p1.txt
+FILE: out_ranges1_free_r1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -64,7 +64,39 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_spill_r1_p2.txt
+FILE: out_ranges1_free_r2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3,4,5,6-
+web1: 9+,10,11,12,13,14-,20+
+web2: 7+,8,9,10-
+# Total number of registers used, followed by assignment to webs
+registers: 2
+r0: web0
+r0: web1
+r1: web2
+
+==========================================
+
+FILE: out_ranges1_free_r3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3,4,5,6-
+web1: 9+,10,11,12,13,14-,20+
+web2: 7+,8,9,10-
+# Total number of registers used, followed by assignment to webs
+registers: 2
+r0: web0
+r0: web1
+r1: web2
+
+==========================================
+
+FILE: out_ranges1_spill_r1_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -80,7 +112,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_spill_r1_p3.txt
+FILE: out_ranges1_spill_r1_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -96,7 +128,23 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_spill_r2_p1.txt
+FILE: out_ranges1_spill_r1_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3,4,5,6-
+web1: 9+,10,11,12,13,14-,20+
+web2: 7+,8,9,10-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+M: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges1_spill_r2_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -112,7 +160,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_spill_r2_p2.txt
+FILE: out_ranges1_spill_r2_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -128,7 +176,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_spill_r2_p3.txt
+FILE: out_ranges1_spill_r2_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -144,7 +192,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_spill_r3_p1.txt
+FILE: out_ranges1_spill_r3_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -160,7 +208,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_spill_r3_p2.txt
+FILE: out_ranges1_spill_r3_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -176,7 +224,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_spill_r3_p3.txt
+FILE: out_ranges1_spill_r3_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -192,7 +240,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_split_r1_p1.txt
+FILE: out_ranges1_split_r1_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -208,7 +256,7 @@ M: web2
 
 ==========================================
 
-FILE: out_rg1_split_r1_p2.txt
+FILE: out_ranges1_split_r1_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -224,7 +272,7 @@ M: web2
 
 ==========================================
 
-FILE: out_rg1_split_r1_p3.txt
+FILE: out_ranges1_split_r1_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -240,7 +288,7 @@ M: web2
 
 ==========================================
 
-FILE: out_rg1_split_r2_p1.txt
+FILE: out_ranges1_split_r2_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -256,7 +304,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_split_r2_p2.txt
+FILE: out_ranges1_split_r2_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -272,7 +320,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_split_r2_p3.txt
+FILE: out_ranges1_split_r2_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -288,7 +336,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_split_r3_p1.txt
+FILE: out_ranges1_split_r3_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -304,7 +352,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_split_r3_p2.txt
+FILE: out_ranges1_split_r3_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -320,7 +368,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg1_split_r3_p3.txt
+FILE: out_ranges1_split_r3_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -336,7 +384,7 @@ r0: web2
 
 ==========================================
 
-FILE: out_rg2_basic_r1.txt
+FILE: out_ranges2_basic_r1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -350,7 +398,7 @@ M: web1
 
 ==========================================
 
-FILE: out_rg2_basic_r2.txt
+FILE: out_ranges2_basic_r2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -364,7 +412,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_basic_r3.txt
+FILE: out_ranges2_basic_r3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -378,7 +426,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_spill_r1_p1.txt
+FILE: out_ranges2_free_r1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -392,7 +440,35 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_spill_r1_p2.txt
+FILE: out_ranges2_free_r2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 2
+web0: 1+,2,3,4,7,8,9-,11,12,13-
+web1: 7+,8,9,10-
+# Total number of registers used, followed by assignment to webs
+registers: 2
+r0: web0
+r1: web1
+
+==========================================
+
+FILE: out_ranges2_free_r3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 2
+web0: 1+,2,3,4,7,8,9-,11,12,13-
+web1: 7+,8,9,10-
+# Total number of registers used, followed by assignment to webs
+registers: 2
+r0: web0
+r1: web1
+
+==========================================
+
+FILE: out_ranges2_spill_r1_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -406,7 +482,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_spill_r1_p3.txt
+FILE: out_ranges2_spill_r1_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -420,7 +496,21 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_spill_r2_p1.txt
+FILE: out_ranges2_spill_r1_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 2
+web0: 1+,2,3,4,7,8,9-,11,12,13-
+web1: 7+,8,9,10-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+M: web0
+r0: web1
+
+==========================================
+
+FILE: out_ranges2_spill_r2_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -434,7 +524,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_spill_r2_p2.txt
+FILE: out_ranges2_spill_r2_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -448,7 +538,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_spill_r2_p3.txt
+FILE: out_ranges2_spill_r2_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -462,7 +552,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_spill_r3_p1.txt
+FILE: out_ranges2_spill_r3_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -476,7 +566,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_spill_r3_p2.txt
+FILE: out_ranges2_spill_r3_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -490,7 +580,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_spill_r3_p3.txt
+FILE: out_ranges2_spill_r3_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -504,7 +594,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_split_r1_p1.txt
+FILE: out_ranges2_split_r1_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -518,7 +608,7 @@ M: web1
 
 ==========================================
 
-FILE: out_rg2_split_r1_p2.txt
+FILE: out_ranges2_split_r1_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -532,7 +622,7 @@ M: web1
 
 ==========================================
 
-FILE: out_rg2_split_r1_p3.txt
+FILE: out_ranges2_split_r1_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -546,7 +636,7 @@ M: web1
 
 ==========================================
 
-FILE: out_rg2_split_r2_p1.txt
+FILE: out_ranges2_split_r2_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -560,7 +650,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_split_r2_p2.txt
+FILE: out_ranges2_split_r2_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -574,7 +664,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_split_r2_p3.txt
+FILE: out_ranges2_split_r2_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -588,7 +678,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_split_r3_p1.txt
+FILE: out_ranges2_split_r3_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -602,7 +692,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_split_r3_p2.txt
+FILE: out_ranges2_split_r3_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -616,7 +706,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg2_split_r3_p3.txt
+FILE: out_ranges2_split_r3_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -630,7 +720,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_basic_r1.txt
+FILE: out_ranges3_basic_r1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -644,7 +734,7 @@ M: web1
 
 ==========================================
 
-FILE: out_rg3_basic_r2.txt
+FILE: out_ranges3_basic_r2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -658,7 +748,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_basic_r3.txt
+FILE: out_ranges3_basic_r3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -672,7 +762,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_spill_r1_p1.txt
+FILE: out_ranges3_free_r1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -686,7 +776,35 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_spill_r1_p2.txt
+FILE: out_ranges3_free_r2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 2
+web0: 1+,2,3,4,5,6-,9-,10,11,12,13,14-,20+
+web1: 7+,8,9,10-
+# Total number of registers used, followed by assignment to webs
+registers: 2
+r0: web0
+r1: web1
+
+==========================================
+
+FILE: out_ranges3_free_r3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 2
+web0: 1+,2,3,4,5,6-,9-,10,11,12,13,14-,20+
+web1: 7+,8,9,10-
+# Total number of registers used, followed by assignment to webs
+registers: 2
+r0: web0
+r1: web1
+
+==========================================
+
+FILE: out_ranges3_spill_r1_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -700,7 +818,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_spill_r1_p3.txt
+FILE: out_ranges3_spill_r1_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -714,7 +832,21 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_spill_r2_p1.txt
+FILE: out_ranges3_spill_r1_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 2
+web0: 1+,2,3,4,5,6-,9-,10,11,12,13,14-,20+
+web1: 7+,8,9,10-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+M: web0
+r0: web1
+
+==========================================
+
+FILE: out_ranges3_spill_r2_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -728,7 +860,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_spill_r2_p2.txt
+FILE: out_ranges3_spill_r2_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -742,7 +874,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_spill_r2_p3.txt
+FILE: out_ranges3_spill_r2_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -756,7 +888,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_spill_r3_p1.txt
+FILE: out_ranges3_spill_r3_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -770,7 +902,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_spill_r3_p2.txt
+FILE: out_ranges3_spill_r3_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -784,7 +916,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_spill_r3_p3.txt
+FILE: out_ranges3_spill_r3_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -798,7 +930,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_split_r1_p1.txt
+FILE: out_ranges3_split_r1_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -812,7 +944,7 @@ M: web1
 
 ==========================================
 
-FILE: out_rg3_split_r1_p2.txt
+FILE: out_ranges3_split_r1_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -826,7 +958,7 @@ M: web1
 
 ==========================================
 
-FILE: out_rg3_split_r1_p3.txt
+FILE: out_ranges3_split_r1_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -840,7 +972,7 @@ M: web1
 
 ==========================================
 
-FILE: out_rg3_split_r2_p1.txt
+FILE: out_ranges3_split_r2_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -854,7 +986,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_split_r2_p2.txt
+FILE: out_ranges3_split_r2_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -868,7 +1000,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_split_r2_p3.txt
+FILE: out_ranges3_split_r2_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -882,7 +1014,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_split_r3_p1.txt
+FILE: out_ranges3_split_r3_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -896,7 +1028,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_split_r3_p2.txt
+FILE: out_ranges3_split_r3_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -910,7 +1042,7 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg3_split_r3_p3.txt
+FILE: out_ranges3_split_r3_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
@@ -924,730 +1056,832 @@ r0: web1
 
 ==========================================
 
-FILE: out_rg4_basic_r1.txt
+FILE: out_ranges4_basic_r1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 0
-M: web0
-M: web1
-M: web2
-M: web3
-
-==========================================
-
-FILE: out_rg4_basic_r2.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_basic_r3.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_spill_r1_p1.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 0
-M: web0
-M: web1
-M: web2
-M: web3
-
-==========================================
-
-FILE: out_rg4_spill_r1_p2.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
 # Total number of registers used, followed by assignment to webs
 registers: 1
 r0: web0
-M: web1
-M: web2
+r0: web1
+r0: web2
 r0: web3
 
 ==========================================
 
-FILE: out_rg4_spill_r1_p3.txt
+FILE: out_ranges4_basic_r2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
 # Total number of registers used, followed by assignment to webs
 registers: 1
 r0: web0
-M: web1
-M: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_spill_r2_p1.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
 r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_spill_r2_p2.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_spill_r2_p3.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_spill_r3_p1.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_spill_r3_p2.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_spill_r3_p3.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_split_r1_p1.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 0
-M: web0
-M: web1
-M: web2
-M: web3
-
-==========================================
-
-FILE: out_rg4_split_r1_p2.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 0
-M: web0
-M: web1
-M: web2
-M: web3
-
-==========================================
-
-FILE: out_rg4_split_r1_p3.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 0
-M: web0
-M: web1
-M: web2
-M: web3
-
-==========================================
-
-FILE: out_rg4_split_r2_p1.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_split_r2_p2.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_split_r2_p3.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_split_r3_p1.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_split_r3_p2.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg4_split_r3_p3.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 4
-web0: 4+,5-
-web1: 3+,4-
-web2: 2+,3-
-web3: 1+,2-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r0: web1
-r1: web2
-r0: web3
-
-==========================================
-
-FILE: out_rg5_basic_r1.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
-# Total number of registers used, followed by assignment to webs
-registers: 0
-M: web0
-M: web1
-M: web2
-
-==========================================
-
-FILE: out_rg5_basic_r2.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r0: web0
-r1: web1
 r0: web2
+r0: web3
 
 ==========================================
 
-FILE: out_rg5_basic_r3.txt
+FILE: out_ranges4_basic_r3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r0: web0
-r1: web1
-r0: web2
-
-==========================================
-
-FILE: out_rg5_spill_r1_p1.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
 # Total number of registers used, followed by assignment to webs
 registers: 1
 r0: web0
-M: web1
+r0: web1
 r0: web2
+r0: web3
 
 ==========================================
 
-FILE: out_rg5_spill_r1_p2.txt
+FILE: out_ranges4_free_r1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
 # Total number of registers used, followed by assignment to webs
 registers: 1
 r0: web0
-M: web1
+r0: web1
 r0: web2
+r0: web3
 
 ==========================================
 
-FILE: out_rg5_spill_r1_p3.txt
+FILE: out_ranges4_free_r2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
 # Total number of registers used, followed by assignment to webs
 registers: 1
 r0: web0
-M: web1
+r0: web1
 r0: web2
+r0: web3
 
 ==========================================
 
-FILE: out_rg5_spill_r2_p1.txt
+FILE: out_ranges4_free_r3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
 # Total number of registers used, followed by assignment to webs
-registers: 2
+registers: 1
 r0: web0
-r1: web1
+r0: web1
 r0: web2
+r0: web3
 
 ==========================================
 
-FILE: out_rg5_spill_r2_p2.txt
+FILE: out_ranges4_spill_r1_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
 # Total number of registers used, followed by assignment to webs
-registers: 2
+registers: 1
 r0: web0
-r1: web1
+r0: web1
 r0: web2
+r0: web3
 
 ==========================================
 
-FILE: out_rg5_spill_r2_p3.txt
+FILE: out_ranges4_spill_r1_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
 # Total number of registers used, followed by assignment to webs
-registers: 2
+registers: 1
 r0: web0
-r1: web1
+r0: web1
 r0: web2
+r0: web3
 
 ==========================================
 
-FILE: out_rg5_spill_r3_p1.txt
+FILE: out_ranges4_spill_r1_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
 # Total number of registers used, followed by assignment to webs
-registers: 2
+registers: 1
 r0: web0
-r1: web1
+r0: web1
 r0: web2
+r0: web3
 
 ==========================================
 
-FILE: out_rg5_spill_r3_p2.txt
+FILE: out_ranges4_spill_r2_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
 # Total number of registers used, followed by assignment to webs
-registers: 2
+registers: 1
 r0: web0
-r1: web1
+r0: web1
 r0: web2
+r0: web3
 
 ==========================================
 
-FILE: out_rg5_spill_r3_p3.txt
+FILE: out_ranges4_spill_r2_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
 # Total number of registers used, followed by assignment to webs
-registers: 2
+registers: 1
 r0: web0
-r1: web1
+r0: web1
 r0: web2
+r0: web3
 
 ==========================================
 
-FILE: out_rg5_split_r1_p1.txt
+FILE: out_ranges4_spill_r2_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
 # Total number of registers used, followed by assignment to webs
-registers: 0
-M: web0
-M: web1
-M: web2
-
-==========================================
-
-FILE: out_rg5_split_r1_p2.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
-# Total number of registers used, followed by assignment to webs
-registers: 0
-M: web0
-M: web1
-M: web2
-
-==========================================
-
-FILE: out_rg5_split_r1_p3.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
-# Total number of registers used, followed by assignment to webs
-registers: 0
-M: web0
-M: web1
-M: web2
-
-==========================================
-
-FILE: out_rg5_split_r2_p1.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 3
-web0: 5+,6,7-
-web1: 3+,4,5-
-web2: 1+,2,3-
-# Total number of registers used, followed by assignment to webs
-registers: 2
+registers: 1
 r0: web0
-r1: web1
+r0: web1
 r0: web2
+r0: web3
 
 ==========================================
 
-FILE: out_rg5_split_r2_p2.txt
+FILE: out_ranges4_spill_r3_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+r0: web3
+
+==========================================
+
+FILE: out_ranges4_spill_r3_p2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+r0: web3
+
+==========================================
+
+FILE: out_ranges4_spill_r3_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+r0: web3
+
+==========================================
+
+FILE: out_ranges4_split_r1_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+r0: web3
+
+==========================================
+
+FILE: out_ranges4_split_r1_p2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+r0: web3
+
+==========================================
+
+FILE: out_ranges4_split_r1_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+r0: web3
+
+==========================================
+
+FILE: out_ranges4_split_r2_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+r0: web3
+
+==========================================
+
+FILE: out_ranges4_split_r2_p2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+r0: web3
+
+==========================================
+
+FILE: out_ranges4_split_r2_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+r0: web3
+
+==========================================
+
+FILE: out_ranges4_split_r3_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+r0: web3
+
+==========================================
+
+FILE: out_ranges4_split_r3_p2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+r0: web3
+
+==========================================
+
+FILE: out_ranges4_split_r3_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 4
+web0: 1+,2-
+web1: 2+,3-
+web2: 3+,4-
+web3: 4+,5-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+r0: web3
+
+==========================================
+
+FILE: out_ranges5_basic_r1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 3
-web0: 5+,6,7-
+web0: 1+,2,3-
 web1: 3+,4,5-
-web2: 1+,2,3-
+web2: 5+,6,7-
 # Total number of registers used, followed by assignment to webs
-registers: 2
+registers: 1
 r0: web0
-r1: web1
+r0: web1
 r0: web2
 
 ==========================================
 
-FILE: out_rg5_split_r2_p3.txt
+FILE: out_ranges5_basic_r2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 3
-web0: 5+,6,7-
+web0: 1+,2,3-
 web1: 3+,4,5-
-web2: 1+,2,3-
+web2: 5+,6,7-
 # Total number of registers used, followed by assignment to webs
-registers: 2
+registers: 1
 r0: web0
-r1: web1
+r0: web1
 r0: web2
 
 ==========================================
 
-FILE: out_rg5_split_r3_p1.txt
+FILE: out_ranges5_basic_r3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 3
-web0: 5+,6,7-
+web0: 1+,2,3-
 web1: 3+,4,5-
-web2: 1+,2,3-
+web2: 5+,6,7-
 # Total number of registers used, followed by assignment to webs
-registers: 2
+registers: 1
 r0: web0
-r1: web1
+r0: web1
 r0: web2
 
 ==========================================
 
-FILE: out_rg5_split_r3_p2.txt
+FILE: out_ranges5_free_r1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 3
-web0: 5+,6,7-
+web0: 1+,2,3-
 web1: 3+,4,5-
-web2: 1+,2,3-
+web2: 5+,6,7-
 # Total number of registers used, followed by assignment to webs
-registers: 2
+registers: 1
 r0: web0
-r1: web1
+r0: web1
 r0: web2
 
 ==========================================
 
-FILE: out_rg5_split_r3_p3.txt
+FILE: out_ranges5_free_r2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 3
-web0: 5+,6,7-
+web0: 1+,2,3-
 web1: 3+,4,5-
-web2: 1+,2,3-
+web2: 5+,6,7-
 # Total number of registers used, followed by assignment to webs
-registers: 2
+registers: 1
 r0: web0
-r1: web1
+r0: web1
 r0: web2
 
 ==========================================
 
-FILE: out_rg6_basic_r1.txt
+FILE: out_ranges5_free_r3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_spill_r1_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_spill_r1_p2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_spill_r1_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_spill_r2_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_spill_r2_p2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_spill_r2_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_spill_r3_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_spill_r3_p2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_spill_r3_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_split_r1_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_split_r1_p2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_split_r1_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_split_r2_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_split_r2_p2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_split_r2_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_split_r3_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_split_r3_p2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges5_split_r3_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 3
+web0: 1+,2,3-
+web1: 3+,4,5-
+web2: 5+,6,7-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+r0: web0
+r0: web1
+r0: web2
+
+==========================================
+
+FILE: out_ranges6_basic_r1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
 registers: 0
 M: web0
@@ -1658,16 +1892,16 @@ M: web4
 
 ==========================================
 
-FILE: out_rg6_basic_r2.txt
+FILE: out_ranges6_basic_r2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
 registers: 0
 M: web0
@@ -1678,216 +1912,276 @@ M: web4
 
 ==========================================
 
-FILE: out_rg6_basic_r3.txt
+FILE: out_ranges6_basic_r3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
 registers: 3
-r1: web0
-r2: web1
-r1: web2
-r0: web3
-r0: web4
-
-==========================================
-
-FILE: out_rg6_spill_r1_p1.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
-web3: 6+,7,8,9-
-web4: 1+,2,3,10-
-# Total number of registers used, followed by assignment to webs
-registers: 0
-M: web0
-M: web1
-M: web2
-M: web3
-M: web4
-
-==========================================
-
-FILE: out_rg6_spill_r1_p2.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
-web3: 6+,7,8,9-
-web4: 1+,2,3,10-
-# Total number of registers used, followed by assignment to webs
-registers: 0
-M: web0
-M: web1
-M: web2
-M: web3
-M: web4
-
-==========================================
-
-FILE: out_rg6_spill_r1_p3.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
-web3: 6+,7,8,9-
-web4: 1+,2,3,10-
-# Total number of registers used, followed by assignment to webs
-registers: 1
-M: web0
-M: web1
-M: web2
-r0: web3
-r0: web4
-
-==========================================
-
-FILE: out_rg6_spill_r2_p1.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
-web3: 6+,7,8,9-
-web4: 1+,2,3,10-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-M: web0
-r0: web1
-r1: web2
+r2: web0
+r1: web1
+r0: web2
 r1: web3
 r0: web4
 
 ==========================================
 
-FILE: out_rg6_spill_r2_p2.txt
+FILE: out_ranges6_free_r1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+M: web0
+r0: web1
+M: web2
+M: web3
+r0: web4
+
+==========================================
+
+FILE: out_ranges6_free_r2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 5
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
+web3: 6+,7,8,9-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
 registers: 2
 M: web0
-r0: web1
-r1: web2
+r1: web1
+r0: web2
 r1: web3
 r0: web4
 
 ==========================================
 
-FILE: out_rg6_spill_r2_p3.txt
+FILE: out_ranges6_free_r3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
+# Total number of registers used, followed by assignment to webs
+registers: 3
+r0: web0
+r1: web1
+r0: web2
+r1: web3
+r2: web4
+
+==========================================
+
+FILE: out_ranges6_spill_r1_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 5
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
+web3: 6+,7,8,9-
+web4: 8+,9,10,11-
+# Total number of registers used, followed by assignment to webs
+registers: 0
+M: web0
+M: web1
+M: web2
+M: web3
+M: web4
+
+==========================================
+
+FILE: out_ranges6_spill_r1_p2.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 5
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
+web3: 6+,7,8,9-
+web4: 8+,9,10,11-
+# Total number of registers used, followed by assignment to webs
+registers: 0
+M: web0
+M: web1
+M: web2
+M: web3
+M: web4
+
+==========================================
+
+FILE: out_ranges6_spill_r1_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 5
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
+web3: 6+,7,8,9-
+web4: 8+,9,10,11-
+# Total number of registers used, followed by assignment to webs
+registers: 1
+M: web0
+r0: web1
+M: web2
+M: web3
+r0: web4
+
+==========================================
+
+FILE: out_ranges6_spill_r2_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 5
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
+web3: 6+,7,8,9-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
 registers: 2
 M: web0
-r0: web1
-r1: web2
+r1: web1
+r0: web2
 r1: web3
 r0: web4
 
 ==========================================
 
-FILE: out_rg6_spill_r3_p1.txt
+FILE: out_ranges6_spill_r2_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
-registers: 3
-r1: web0
-r2: web1
-r1: web2
-r0: web3
+registers: 2
+M: web0
+r1: web1
+r0: web2
+r1: web3
 r0: web4
 
 ==========================================
 
-FILE: out_rg6_spill_r3_p2.txt
+FILE: out_ranges6_spill_r2_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
-registers: 3
-r1: web0
-r2: web1
-r1: web2
-r0: web3
+registers: 2
+M: web0
+r1: web1
+r0: web2
+r1: web3
 r0: web4
 
 ==========================================
 
-FILE: out_rg6_spill_r3_p3.txt
+FILE: out_ranges6_spill_r3_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
 registers: 3
-r1: web0
-r2: web1
-r1: web2
-r0: web3
+r2: web0
+r1: web1
+r0: web2
+r1: web3
 r0: web4
 
 ==========================================
 
-FILE: out_rg6_split_r1_p1.txt
+FILE: out_ranges6_spill_r3_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
+# Total number of registers used, followed by assignment to webs
+registers: 3
+r2: web0
+r1: web1
+r0: web2
+r1: web3
+r0: web4
+
+==========================================
+
+FILE: out_ranges6_spill_r3_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 5
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
+web3: 6+,7,8,9-
+web4: 8+,9,10,11-
+# Total number of registers used, followed by assignment to webs
+registers: 3
+r2: web0
+r1: web1
+r0: web2
+r1: web3
+r0: web4
+
+==========================================
+
+FILE: out_ranges6_split_r1_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 5
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
+web3: 6+,7,8,9-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
 registers: 0
 M: web0
@@ -1898,16 +2192,16 @@ M: web4
 
 ==========================================
 
-FILE: out_rg6_split_r1_p2.txt
+FILE: out_ranges6_split_r1_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
 registers: 0
 M: web0
@@ -1918,16 +2212,16 @@ M: web4
 
 ==========================================
 
-FILE: out_rg6_split_r1_p3.txt
+FILE: out_ranges6_split_r1_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
 registers: 0
 M: web0
@@ -1938,122 +2232,130 @@ M: web4
 
 ==========================================
 
-FILE: out_rg6_split_r2_p1.txt
+FILE: out_ranges6_split_r2_p1.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r1: web1
-r0: web2
-r0: web3
+registers: 0
+M: web0
+M: web1
+M: web2
+M: web3
 M: web4
 
 ==========================================
 
-FILE: out_rg6_split_r2_p2.txt
+FILE: out_ranges6_split_r2_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
-webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+webs: 7
+web0: 1+
+web1: 2+,3
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
+web5: 2,3,10-
+web6: 4,5-
 # Total number of registers used, followed by assignment to webs
 registers: 2
-r1: web0
+r0: web0
 r1: web1
-r0: web2
-r0: web3
-M: web4
-
-==========================================
-
-FILE: out_rg6_split_r2_p3.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
-web3: 6+,7,8,9-
-web4: 1+,2,3,10-
-# Total number of registers used, followed by assignment to webs
-registers: 2
-r1: web0
-r1: web1
-r0: web2
-r0: web3
-M: web4
-
-==========================================
-
-FILE: out_rg6_split_r3_p1.txt
-------------------------------------------
-# Total number of webs followed by the listing of the program points of each one
-# program points in each web are sorted in ascending order
-webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
-web3: 6+,7,8,9-
-web4: 1+,2,3,10-
-# Total number of registers used, followed by assignment to webs
-registers: 3
-r1: web0
-r2: web1
 r1: web2
 r0: web3
+r1: web4
+r0: web5
+r0: web6
+
+==========================================
+
+FILE: out_ranges6_split_r2_p3.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 7
+web0: 1+
+web1: 2+,3
+web2: 4+,5,6,7-
+web3: 6+,7,8,9-
+web4: 8+,9,10,11-
+web5: 2,3,10-
+web6: 4,5-
+# Total number of registers used, followed by assignment to webs
+registers: 2
+r0: web0
+r1: web1
+r1: web2
+r0: web3
+r1: web4
+r0: web5
+r0: web6
+
+==========================================
+
+FILE: out_ranges6_split_r3_p1.txt
+------------------------------------------
+# Total number of webs followed by the listing of the program points of each one
+# program points in each web are sorted in ascending order
+webs: 5
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
+web3: 6+,7,8,9-
+web4: 8+,9,10,11-
+# Total number of registers used, followed by assignment to webs
+registers: 3
+r2: web0
+r1: web1
+r0: web2
+r1: web3
 r0: web4
 
 ==========================================
 
-FILE: out_rg6_split_r3_p2.txt
+FILE: out_ranges6_split_r3_p2.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
 registers: 3
-r1: web0
-r2: web1
-r1: web2
-r0: web3
+r2: web0
+r1: web1
+r0: web2
+r1: web3
 r0: web4
 
 ==========================================
 
-FILE: out_rg6_split_r3_p3.txt
+FILE: out_ranges6_split_r3_p3.txt
 ------------------------------------------
 # Total number of webs followed by the listing of the program points of each one
 # program points in each web are sorted in ascending order
 webs: 5
-web0: 8+,9,10,11-
-web1: 4+,5,6,7-
-web2: 2+,3,4,5-
+web0: 1+,2,3,10-
+web1: 2+,3,4,5-
+web2: 4+,5,6,7-
 web3: 6+,7,8,9-
-web4: 1+,2,3,10-
+web4: 8+,9,10,11-
 # Total number of registers used, followed by assignment to webs
 registers: 3
-r1: web0
-r2: web1
-r1: web2
-r0: web3
+r2: web0
+r1: web1
+r0: web2
+r1: web3
 r0: web4
 
 ==========================================

@@ -1,0 +1,18 @@
+<map id="src/Web.cpp" name="src/Web.cpp">
+<area shape="rect" id="Node000001" title="Implementation of live&#45;web construction and range&#45;intersection helpers." alt="" coords="241,5,341,31"/>
+<area shape="rect" id="Node000002" href="$Web_8h.html" title="Live&#45;web construction from raw live ranges." alt="" coords="150,79,213,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="275,33,212,73,209,69,272,28"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="237,225,299,251"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="292,31,273,211,268,211,287,31"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="297,79,348,104"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="298,30,314,65,310,67,294,32"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="372,79,457,104"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="312,28,384,69,381,74,309,33"/>
+<area shape="rect" id="Node000003" href="$Structures_8h.html" title="Shared data structures for live ranges, webs, register configuration and coloring results." alt="" coords="115,152,215,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="181,105,173,139,168,138,176,104"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,225,64,251"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="146,180,69,221,67,216,143,175"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="89,225,213,251"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="166,178,158,212,153,211,160,177"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="183,175,241,215,238,219,180,180"/>
+</map>

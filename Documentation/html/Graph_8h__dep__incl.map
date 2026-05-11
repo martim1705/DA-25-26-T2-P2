@@ -1,0 +1,16 @@
+<map id="include/Graph.h" name="include/Graph.h">
+<area shape="rect" id="Node000001" title="Generic adjacency&#45;list graph used as the main representation of the interference graph." alt="" coords="319,5,443,31"/>
+<area shape="rect" id="Node000002" href="$InterferenceGraph_8h.html" title="Construction and pairwise testing of live&#45;web interference graphs." alt="" coords="75,79,278,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="336,38,211,81,209,76,334,33"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Command&#45;line and interactive entry point for the register allocation tool." alt="" coords="387,152,492,177"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="426,34,453,52,474,77,478,98,473,119,452,153,447,151,468,117,473,98,469,80,449,56,423,39"/>
+<area shape="rect" id="Node000006" href="$colorGraph_8h.html" title="Public entry point for register allocation through graph coloring." alt="" coords="303,79,459,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="383,44,383,79,378,79,378,44"/>
+<area shape="rect" id="Node000003" href="$InterferenceGraph_8cpp.html" title="Implementation of live&#45;web interference tests and graph construction." alt="" coords="5,152,196,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="156,115,115,154,111,150,153,111"/>
+<area shape="rect" id="Node000004" href="$colorGraph_8cpp.html" title="Register allocation algorithms based on graph coloring, spilling and splitting." alt="" coords="220,152,363,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="208,109,274,150,271,154,205,113"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="233,105,397,149,396,154,231,110"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="357,115,308,154,304,150,354,110"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="401,113,432,150,428,154,397,116"/>
+</map>

@@ -27,11 +27,11 @@
  * @return ColoringResult with the final webs and the register or memory assignment for each web.
  * @complexity Let V be the number of webs, E the number of interference edges, P the maximum
  * number of program points per web, C the register limit and K the spill/split budget.
- * Basic allocation costs O(C * (V^2 + E)) after graph construction.  Spilling may enumerate
- * O(sum_{i=1..K} binom(V,i)) spill sets, rebuilding the graph in O(V^2 * P^2) for each tested
- * set.  Splitting performs up to K heuristic graph rebuilds, each dominated by O(V^2 * P^2).
- * Free mode uses DSATUR, exponential in V in the worst case, then tries bounded spilling.
+ * Basic allocation costs O(C * (V^2 + E)) after graph construction. Spilling uses polynomial
+ * heuristics (Hopcroft-Tarjan articulation points and max-degree) bounded by O(K * (V^2 + E)).
+ * Splitting performs up to K heuristic graph rebuilds, each dominated by O(V^2 * P^2).
+ * Free mode uses DSATUR (bounded by a strict call limit) followed by O(V * (V^2 + E)) heuristic spilling.
  */
-ColoringResult colorGraphFunc(Graph<Web> &graph, int N, const std::string& mode, int K);
+ColoringResult colorGraphFunc(const Graph<Web> &graph, int N, const std::string& mode, int K);
 
 #endif //PROJETO2_COLORGRAPH_H

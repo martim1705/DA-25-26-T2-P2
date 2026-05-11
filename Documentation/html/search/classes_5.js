@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['registerconfig_0',['RegisterConfig',['../struct_register_config.html',1,'']]]
+  ['registerconfig_0',['RegisterConfig',['../structRegisterConfig.html',1,'']]]
 ];

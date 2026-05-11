@@ -1,0 +1,9 @@
+<map id="include/InterferenceGraph.h" name="include/InterferenceGraph.h">
+<area shape="rect" id="Node000001" title="Construction and pairwise testing of live&#45;web interference graphs." alt="" coords="190,5,393,31"/>
+<area shape="rect" id="Node000002" href="$InterferenceGraph_8cpp.html" title="Implementation of live&#45;web interference tests and graph construction." alt="" coords="5,79,196,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="249,38,133,81,131,76,247,33"/>
+<area shape="rect" id="Node000003" href="$colorGraph_8cpp.html" title="Register allocation algorithms based on graph coloring, spilling and splitting." alt="" coords="220,79,363,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="294,44,294,79,289,79,289,44"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Command&#45;line and interactive entry point for the register allocation tool." alt="" coords="387,79,492,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="328,34,416,76,414,81,326,39"/>
+</map>

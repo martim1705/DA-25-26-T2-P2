@@ -1,0 +1,30 @@
+<map id="include/Structures.h" name="include/Structures.h">
+<area shape="rect" id="Node000001" title="Shared data structures for live ranges, webs, register configuration and coloring results." alt="" coords="479,5,629,31"/>
+<area shape="rect" id="Node000002" href="$InterferenceGraph_8h.html" title="Construction and pairwise testing of live&#45;web interference graphs." alt="" coords="82,79,285,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="482,36,244,81,243,76,481,31"/>
+<area shape="rect" id="Node000006" href="$Output_8h.html" title="Output writer for web listings and register assignments." alt="" coords="489,79,619,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="557,44,557,79,551,79,551,44"/>
+<area shape="rect" id="Node000008" href="$Parser_8h.html" title="Parsers for live&#45;range and register&#45;configuration input files." alt="" coords="643,79,767,104"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="592,34,681,76,679,81,589,39"/>
+<area shape="rect" id="Node000010" href="$Web_8h.html" title="Live&#45;web construction from raw live ranges." alt="" coords="791,79,904,104"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="615,31,800,76,799,81,614,36"/>
+<area shape="rect" id="Node000012" href="$colorGraph_8h.html" title="Public entry point for register allocation through graph coloring." alt="" coords="309,79,465,104"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="516,38,416,81,414,76,514,34"/>
+<area shape="rect" id="Node000003" href="$InterferenceGraph_8cpp.html" title="Implementation of live&#45;web interference tests and graph construction." alt="" coords="5,152,196,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="161,115,116,154,112,150,158,111"/>
+<area shape="rect" id="Node000004" href="$colorGraph_8cpp.html" title="Register allocation algorithms based on graph coloring, spilling and splitting." alt="" coords="220,152,363,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="213,109,275,150,272,154,211,114"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Command&#45;line and interactive entry point for the register allocation tool." alt="" coords="387,152,492,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="238,105,399,149,397,154,237,110"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="526,113,459,154,457,150,523,109"/>
+<area shape="rect" id="Node000007" href="$Output_8cpp.html" title="Implementation of the allocation output writer." alt="" coords="516,152,632,177"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="564,117,573,151,568,153,558,118"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="649,110,483,154,482,149,648,105"/>
+<area shape="rect" id="Node000009" href="$Parser_8cpp.html" title="Implementation of the project input parsers." alt="" coords="656,152,767,177"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="710,118,713,152,708,152,704,118"/>
+<area shape="poly" id="edge13_Node000010_Node000005" title=" " alt="" coords="777,107,504,155,493,157,492,151,503,149,776,102"/>
+<area shape="rect" id="Node000011" href="$Web_8cpp.html" title="Implementation of live&#45;web construction and range&#45;intersection helpers." alt="" coords="797,152,897,177"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="850,118,850,152,845,152,845,118"/>
+<area shape="poly" id="edge15_Node000012_Node000004" title=" " alt="" coords="362,114,309,154,305,150,359,110"/>
+<area shape="poly" id="edge16_Node000012_Node000005" title=" " alt="" coords="406,114,433,150,429,153,402,117"/>
+</map>

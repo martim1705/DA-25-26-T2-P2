@@ -9,7 +9,6 @@
 #include <functional>
 #include <iostream>
 #include <map>
-#include <numeric>
 #include <set>
 #include <stack>
 #include <unordered_map>
@@ -94,31 +93,6 @@ namespace {
     }
 
     /**
-     * @brief Gets the number of program points in a web.
-     * @param web Web to inspect.
-     * @return Number of points.
-     * @complexity O(1).
-     */
-    int webLength(const Web& web) {
-        return static_cast<int>(web.points.size());
-    }
-
-    /**
-     * @brief Builds an interference graph excluding spilled webs.
-     * @param webs Original web collection.
-     * @param spilled Set of web ids to remove.
-     * @return Interference graph over the remaining webs.
-     * @complexity O(V log S + V^2 * P^2), where S is the number of spilled ids and P is the maximum web size.
-     */
-    Graph<Web> graphWithoutSpilled(const std::vector<Web>& webs, const std::set<int>& spilled) {
-        std::vector<Web> kept;
-        for (const auto& web : webs) {
-            if (!spilled.count(web.id)) kept.push_back(web);
-        }
-        return buildInterferenceGraph(kept);
-    }
-
-    /**
      * @brief Validates that no adjacent non-spilled webs share the same color.
      * @param graph Interference graph.
      * @param colors Web-id to register mapping.
@@ -173,18 +147,19 @@ namespace {
 
             if (best == nullptr) {
                 // Optimistic coloring: when the simplification rule gets stuck,
-                // push the highest-degree node anyway.  If the graph is truly not
-                // colorable with this color count, the assignment phase will fail
-                // cleanly when no register is available.
+                // push the highest-degree node anyway.
                 int bestDegree = -1;
-                for (auto vertex : tempGraph.getVertexSet()) {
+                for (const auto vertex : tempGraph.getVertexSet()) {
                     int degree = static_cast<int>(vertex->getAdj().size());
-                    if (degree > bestDegree || (degree == bestDegree && vertex->getInfo().id < best->getInfo().id)) {
+                    if (best == nullptr || degree > bestDegree ||
+                       (degree == bestDegree && vertex->getInfo().id < best->getInfo().id)) {
                         best = vertex;
                         bestDegree = degree;
-                    }
+                       }
                 }
             }
+
+           if (best == nullptr) break;
 
             Web selected = best->getInfo();
             stack.push(selected);
@@ -290,106 +265,124 @@ namespace {
     }
 
     /**
-     * @brief Tries allocation after forcing a specific set of webs to memory.
-     * @param webs Original web vector.
-     * @param maxRegisters Maximum registers available.
-     * @param spilled Web ids forced to memory.
-     * @return Coloring result with spilled webs marked as -1, or failure.
-     * @complexity O(V log S + V^2 * P^2 + C * (V^2 + E)).
+     * @brief Helper to find the highest degree node cleanly.
+     * @complexity O(V)
      */
-    ColoringResult trySpillSet(const std::vector<Web>& webs, int maxRegisters, const std::set<int>& spilled) {
-        std::vector<Web> kept = removeWebs(webs, spilled);
-        Graph<Web> reducedGraph = buildInterferenceGraph(kept);
-        AllocationAttempt attempt;
-
-        if (kept.empty()) {
-            attempt.success = true;
-        } else {
-            attempt = tryBasicUpTo(reducedGraph, maxRegisters);
+    Web findMaxDegreeNode(const Graph<Web>& graph) {
+        int maxDegree = -1;
+        Web victim;
+        for (auto v : graph.getVertexSet()) {
+            int currentDegree = static_cast<int>(v->getAdj().size());
+            if (currentDegree > maxDegree ||
+               (currentDegree == maxDegree && v->getInfo().id < victim.id)) {
+                maxDegree = currentDegree;
+                victim = v->getInfo();
+            }
         }
-
-        if (!attempt.success) return makeResult(false, webs, {});
-
-        for (int id : spilled) {
-            attempt.colors[id] = -1;
-        }
-        return makeResult(true, webs, attempt.colors);
+        return victim;
     }
 
     /**
-     * @brief Orders spill candidates by descending degree, then descending web length.
-     * @param graph Current interference graph.
-     * @return Webs sorted from most attractive to least attractive spill candidate.
-     * @complexity O(V log V * V) because each comparator may search graph vertices by value.
+     * @brief Hopcroft-Tarjan DFS algorithm to find an articulation point.
+     * @complexity O(V+E)
      */
-    std::vector<Web> spillCandidatesByHeuristic(const Graph<Web>& graph) {
-        std::vector<Web> candidates = graphWebs(graph);
-        std::sort(candidates.begin(), candidates.end(), [&graph](const Web& a, const Web& b) {
-            int degreeA = 0;
-            int degreeB = 0;
-            if (graph.findVertex(a) != nullptr) degreeA = static_cast<int>(graph.findVertex(a)->getAdj().size());
-            if (graph.findVertex(b) != nullptr) degreeB = static_cast<int>(graph.findVertex(b)->getAdj().size());
-            if (degreeA != degreeB) return degreeA > degreeB;
-            if (webLength(a) != webLength(b)) return webLength(a) > webLength(b);
-            return a.id < b.id;
-        });
-        return candidates;
+    void articulationDFS(const Vertex<Web>* u, std::unordered_map<int, bool>& visited,
+                         std::unordered_map<int, int>& disc, std::unordered_map<int, int>& low,
+                         std::unordered_map<int, int>& parent, std::unordered_map<int, bool>& is_ap,
+                         int& time) {
+        int u_id = u->getInfo().id;
+        visited[u_id] = true;
+        disc[u_id] = low[u_id] = ++time;
+        int children = 0;
+
+        for (auto edge : u->getAdj()) {
+            Vertex<Web>* v = edge->getDest();
+            int v_id = v->getInfo().id;
+
+            if (!visited[v_id]) {
+                children++;
+                parent[v_id] = u_id;
+                articulationDFS(v, visited, disc, low, parent, is_ap, time);
+                low[u_id] = std::min(low[u_id], low[v_id]);
+
+                if (parent[u_id] == -1 && children > 1) is_ap[u_id] = true;
+                if (parent[u_id] != -1 && low[v_id] >= disc[u_id]) is_ap[u_id] = true;
+            } else if (v_id != parent[u_id]) {
+                low[u_id] = std::min(low[u_id], disc[v_id]);
+            }
+        }
     }
 
     /**
-     * @brief Performs allocation with bounded web spilling.
-     *
-     * The algorithm first tries the basic allocator.  If it fails, it searches spill sets of size
-     * 1, then 2, and so on up to spillBudget.  A cap limits the number of tested
-     * combinations for larger instances.
-     *
-     * @param webs Webs to allocate.
+     * @brief Finds an articulation node if it exists.
+     * @complexity O(V+E)
+     */
+    bool findArticulationNode(const Graph<Web>& graph, Web& outVictim) {
+        std::unordered_map<int, bool> visited;
+        std::unordered_map<int, int> disc, low, parent;
+        std::unordered_map<int, bool> is_ap; // FIXED: Separated from the ints
+        int time = 0;
+
+        for (auto v : graph.getVertexSet()) {
+            int id = v->getInfo().id;
+            visited[id] = false;
+            parent[id] = -1;
+            is_ap[id] = false;
+        }
+
+        for (auto v : graph.getVertexSet()) {
+            if (!visited[v->getInfo().id]) {
+                articulationDFS(v, visited, disc, low, parent, is_ap, time);
+            }
+        }
+
+        for (auto v : graph.getVertexSet()) {
+            if (is_ap[v->getInfo().id]) {
+                outVictim = v->getInfo();
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * @brief Performs allocation with bounded web spilling using Hopcroft-Tarjan.
+     * * Instead of exponential brute-force combinations, this safely breaks the
+     * interference graph at structural weak points (articulation nodes) in polynomial time.
+     * * @param webs Webs to allocate.
      * @param maxRegisters Maximum registers available.
      * @param spillBudget Maximum number of webs that may be moved to memory.
      * @return Coloring result with spilled webs marked as memory, or failure.
-     * @complexity O(sum_{i=1..K} binom(V,i) * (V^2 * P^2 + C * (V^2 + E))) before the configured search cap.
+     * @complexity O(K * (V^2 + E)), where K is the spill budget.
      */
     ColoringResult spillingAllocation(const std::vector<Web>& webs, int maxRegisters, int spillBudget) {
         ColoringResult basic = basicAllocation(webs, maxRegisters);
         if (basic.success) return basic;
 
-        Graph<Web> originalGraph = buildInterferenceGraph(webs);
-        std::vector<Web> ordered = spillCandidatesByHeuristic(originalGraph);
-        const int n = static_cast<int>(ordered.size());
-        const int maxSpills = std::min(spillBudget, n);
-        const long long combinationLimit = 20000;
+        std::vector<Web> currentWebs = webs;
+        std::set<int> spilledIds;
+        const int maxSpills = std::min(spillBudget, static_cast<int>(webs.size()));
 
-        for (int targetSpills = 1; targetSpills <= maxSpills; targetSpills++) {
-            long long visited = 0;
-            std::set<int> current;
-            ColoringResult best;
+        for (int spills = 1; spills <= maxSpills; spills++) {
+            Graph<Web> graph = buildInterferenceGraph(currentWebs);
+            Web victim;
 
-            std::function<bool(int, int)> dfs = [&](int start, int left) -> bool {
-                if (++visited > combinationLimit) return false;
-                if (left == 0) {
-                    ColoringResult attempt = trySpillSet(webs, maxRegisters, current);
-                    if (attempt.success) {
-                        best = attempt;
-                        return true;
-                    }
-                    return false;
-                }
-                for (int i = start; i <= n - left; i++) {
-                    current.insert(ordered[i].id);
-                    if (dfs(i + 1, left - 1)) return true;
-                    current.erase(ordered[i].id);
-                }
-                return false;
-            };
+            // Heuristic 1: Shatter the graph at an articulation point
+            if (!findArticulationNode(graph, victim)) {
+                // Heuristic 2: Fallback to the most entangled node
+                victim = findMaxDegreeNode(graph);
+            }
 
-            if (dfs(0, targetSpills) && best.success) return best;
+            spilledIds.insert(victim.id);
+            currentWebs = removeWebs(currentWebs, {victim.id});
 
-            // If exhaustive search was capped, use the same ordering greedily.
-            if (visited > combinationLimit) {
-                std::set<int> greedy;
-                for (int i = 0; i < targetSpills; i++) greedy.insert(ordered[i].id);
-                ColoringResult attempt = trySpillSet(webs, maxRegisters, greedy);
-                if (attempt.success) return attempt;
+            Graph<Web> reducedGraph = buildInterferenceGraph(currentWebs);
+            AllocationAttempt attempt = tryBasicUpTo(reducedGraph, maxRegisters);
+
+            if (attempt.success) {
+                for (int id : spilledIds) attempt.colors[id] = -1;
+                return makeResult(true, webs, attempt.colors);
             }
         }
 
@@ -649,7 +642,7 @@ namespace {
         std::unordered_map<int, std::set<int>> adj = adjacencyById(graph);
         std::unordered_map<int, int> colors;
         long long calls = 0;
-        const long long callLimit = 500000;
+        constexpr long long callLimit = 500000;
 
         if (!dsaturBacktrack(ids, adj, colorLimit, colors, calls, callLimit)) {
             return attempt;
@@ -677,59 +670,43 @@ namespace {
     }
 
     /**
-     * @brief Custom allocation strategy based on DSATUR with automatic spilling fallback.
-     * @param webs Webs to allocate.
-     * @param maxRegisters Maximum registers available.
-     * @return Exact coloring if possible; otherwise a coloring with the fewest found spilled webs.
-     * @complexity Exponential in V for DSATUR and, on failure, exponential in the number of spill combinations before the search cap.
-     */
+         * @brief Custom allocation strategy based on DSATUR with Hopcroft-Tarjan spilling fallback.
+         * @param webs Webs to allocate.
+         * @param maxRegisters Maximum registers available.
+         * @return Exact coloring if possible; otherwise a coloring with heuristically spilled webs.
+         */
     ColoringResult freeAllocation(const std::vector<Web>& webs, int maxRegisters) {
         Graph<Web> graph = buildInterferenceGraph(webs);
+
+        // 1. Try an exact mathematical coloring first
         AllocationAttempt exact = tryDsaturUpTo(graph, maxRegisters);
         if (exact.success) return makeResult(true, webs, exact.colors);
 
-        // Custom fallback: spill the fewest webs we can find, trying exact
-        // combinations for small cases and degree-based greedy for larger ones.
+        // 2. If it fails, use polynomial heuristics to spill.
+        std::vector<Web> currentWebs = webs;
+        std::set<int> spilledIds;
         const int n = static_cast<int>(webs.size());
-        std::vector<Web> ordered = spillCandidatesByHeuristic(graph);
-        const long long combinationLimit = 30000;
 
         for (int spills = 1; spills <= n; spills++) {
-            long long visited = 0;
-            std::set<int> current;
-            ColoringResult best;
+            Graph<Web> currentGraph = buildInterferenceGraph(currentWebs);
+            Web victim;
 
-            std::function<bool(int, int)> dfs = [&](int start, int left) -> bool {
-                if (++visited > combinationLimit) return false;
-                if (left == 0) {
-                    std::vector<Web> kept = removeWebs(webs, current);
-                    Graph<Web> reduced = buildInterferenceGraph(kept);
-                    AllocationAttempt attempt = kept.empty() ? AllocationAttempt{true, {}, 0} : tryDsaturUpTo(reduced, maxRegisters);
-                    if (!attempt.success) return false;
-                    for (int id : current) attempt.colors[id] = -1;
-                    best = makeResult(true, webs, attempt.colors);
-                    return true;
-                }
-                for (int i = start; i <= n - left; i++) {
-                    current.insert(ordered[i].id);
-                    if (dfs(i + 1, left - 1)) return true;
-                    current.erase(ordered[i].id);
-                }
-                return false;
-            };
+            // Heuristic 1: Break at articulation node
+            if (!findArticulationNode(currentGraph, victim)) {
+                // Heuristic 2: Fallback to max degree
+                victim = findMaxDegreeNode(currentGraph);
+            }
 
-            if (dfs(0, spills) && best.success) return best;
+            spilledIds.insert(victim.id);
+            currentWebs = removeWebs(currentWebs, {victim.id});
 
-            if (visited > combinationLimit) {
-                std::set<int> greedy;
-                for (int i = 0; i < spills; i++) greedy.insert(ordered[i].id);
-                std::vector<Web> kept = removeWebs(webs, greedy);
-                Graph<Web> reduced = buildInterferenceGraph(kept);
-                AllocationAttempt attempt = kept.empty() ? AllocationAttempt{true, {}, 0} : tryDsaturUpTo(reduced, maxRegisters);
-                if (attempt.success) {
-                    for (int id : greedy) attempt.colors[id] = -1;
-                    return makeResult(true, webs, attempt.colors);
-                }
+            // Re-test the newly weakened graph with the exact DSATUR algorithm
+            Graph<Web> reducedGraph = buildInterferenceGraph(currentWebs);
+            AllocationAttempt attempt = tryDsaturUpTo(reducedGraph, maxRegisters);
+
+            if (attempt.success) {
+                for (int id : spilledIds) attempt.colors[id] = -1;
+                return makeResult(true, webs, attempt.colors);
             }
         }
 
@@ -737,7 +714,7 @@ namespace {
     }
 }
 
-ColoringResult colorGraphFunc(Graph<Web> &graph, const int N, const std::string& mode, int K) {
+ColoringResult colorGraphFunc(const Graph<Web> &graph, const int N, const std::string& mode, int K) {
     std::vector<Web> webs = graphWebs(graph);
 
     if (N <= 0) {
