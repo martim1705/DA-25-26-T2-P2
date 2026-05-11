@@ -117,17 +117,17 @@ namespace {
     }
 
     /**
-     * @brief Tries to color a graph with a fixed number of colors using simplification and optimistic coloring.
-     *
-     * Vertices with degree below colorCount are removed first.  When none exists, the current
-     * highest-degree vertex is pushed optimistically and the final coloring phase determines whether
-     * that choice was safe.
-     *
-     * @param originalGraph Graph to color.
-     * @param colorCount Number of colors/registers to try.
-     * @return AllocationAttempt with success=false if no valid assignment is found.
-     * @complexity O(V^2 + E) for one fixed color count, dominated by repeated vertex scans and removals.
-     */
+    * @brief Tries to color a graph with a fixed number of colors using strict simplification.
+    *
+    * Vertices with degree below colorCount are removed first and pushed to a stack.
+    * If at any point all remaining vertices have a degree equal to or greater than colorCount,
+    * the algorithm immediately aborts and returns an infeasible attempt, as no safe color can be guaranteed.
+    *
+    * @param originalGraph Graph to color.
+    * @param colorCount Number of colors/registers to try.
+    * @return AllocationAttempt with success=false if no valid assignment is found.
+    * @complexity O(V^2 + E) for one fixed color count, dominated by repeated vertex scans and removals.
+    */
     AllocationAttempt simplifyAndColor(const Graph<Web>& originalGraph, int colorCount) {
         AllocationAttempt attempt;
         if (colorCount <= 0) return attempt;
@@ -145,6 +145,7 @@ namespace {
                 }
             }
 
+            /*This is optimistic not what pessimistic like fig.9 que temos que seguir
             if (best == nullptr) {
                 // Optimistic coloring: when the simplification rule gets stuck,
                 // push the highest-degree node anyway.
@@ -158,8 +159,17 @@ namespace {
                        }
                 }
             }
+            */
 
-           if (best == nullptr) break;
+            if (best == nullptr) {
+                // Strict Figure 9 & T2.1 Compliance:
+                // All remaining nodes have degree >= colorCount.
+                // Since Basic mode (T2.1) has no spill budget, we cannot apply
+                // Figure 9's "select node K to spill" step. Therefore, it is infeasible.
+                return AllocationAttempt{};
+            }
+
+          //Obsolete if (best == nullptr) break;
 
             Web selected = best->getInfo();
             stack.push(selected);
@@ -189,10 +199,11 @@ namespace {
                     break;
                 }
             }
-
+            /*Obsolete as well, the chosen color will never be -1 (Pessimistic Adjustent from fig 9.)
             if (chosenColor == -1) {
                 return AllocationAttempt{};
             }
+            */
             attempt.colors[current.id] = chosenColor;
             attempt.registersUsed = std::max(attempt.registersUsed, chosenColor + 1);
         }
