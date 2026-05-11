@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['clear_0',['clear',['../class_graph.html#a696224426bb2dd11eccb30a0f0494db4',1,'Graph']]],
-  ['colorgraph_2ecpp_1',['colorGraph.cpp',['../color_graph_8cpp.html',1,'']]],
-  ['colorgraph_2eh_2',['colorGraph.h',['../color_graph_8h.html',1,'']]],
-  ['colorgraphfunc_3',['colorGraphFunc',['../color_graph_8h.html#a9bad6e6cc1c3a5d54f7cd309b16b9157',1,'colorGraphFunc(Graph&lt; Web &gt; &amp;graph, int N, const std::string &amp;mode, int K):&#160;colorGraph.cpp'],['../color_graph_8cpp.html#a65b9bea044c050bd9d64624e4d894aca',1,'colorGraphFunc(Graph&lt; Web &gt; &amp;graph, const int N, const std::string &amp;mode, int K):&#160;colorGraph.cpp']]],
-  ['coloringresult_4',['ColoringResult',['../struct_coloring_result.html',1,'']]],
-  ['colorofweb_5',['colorOfWeb',['../struct_coloring_result.html#a9483ae3dc87f2e20d4be6be00e6d4a6e',1,'ColoringResult']]]
+  ['dec_0',['dec',['../build_2CMakeFiles_24_83_81_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#ad1280362da42492bbc11aa78cbf776ad',1,'DEC:&#160;CMakeCXXCompilerId.cpp'],['../cmake-build-debug_2CMakeFiles_24_81_82_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#ad1280362da42492bbc11aa78cbf776ad',1,'DEC:&#160;CMakeCXXCompilerId.cpp']]],
+  ['deleteedge_1',['deleteEdge',['../classVertex.html#a622503fe44ef12d5c39bd1043d47865c',1,'Vertex']]],
+  ['deletematrix_2',['deletematrix',['../Graph_8h.html#ad56527992afe31a371065e795da57d25',1,'deleteMatrix(int **m, int n):&#160;Graph.h'],['../Graph_8h.html#af077bc8682a1a1d97e30b08eb1131b19',1,'deleteMatrix(double **m, int n):&#160;Graph.h']]],
+  ['dest_3',['dest',['../classEdge.html#ae4d65678b91bd9d814af4720ad87cd0c',1,'Edge']]],
+  ['dist_4',['dist',['../classVertex.html#a08a2b813e77f97aa8b6c1d252e5417f7',1,'Vertex']]],
+  ['distmatrix_5',['distMatrix',['../classGraph.html#a4517f4351bc7f0348369b25b7c0b44fe',1,'Graph']]]
 ];

@@ -1,0 +1,22 @@
+<map id="include/colorGraph.h" name="include/colorGraph.h">
+<area shape="rect" id="Node000001" title="Public entry point for register allocation through graph coloring." alt="" coords="273,5,429,31"/>
+<area shape="rect" id="Node000002" href="$Graph_8h.html" title="Generic adjacency&#45;list graph used as the main representation of the interference graph." alt="" coords="259,79,333,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="344,33,315,69,311,66,340,29"/>
+<area shape="rect" id="Node000008" href="$Structures_8h.html" title="Shared data structures for live ranges, webs, register configuration and coloring results." alt="" coords="398,79,498,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="368,29,422,68,419,72,365,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,152,85,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="260,106,99,151,98,146,258,101"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="390,152,453,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="317,102,390,143,388,147,315,106"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="110,152,173,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="272,106,180,149,178,144,270,102"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="197,152,256,177"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="286,106,249,144,245,140,283,102"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="280,152,365,177"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="303,103,316,138,311,140,298,105"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="446,105,433,140,428,138,441,103"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="477,152,536,177"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="460,103,491,140,487,143,456,106"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="561,152,685,177"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="477,102,582,144,580,149,475,106"/>
+</map>

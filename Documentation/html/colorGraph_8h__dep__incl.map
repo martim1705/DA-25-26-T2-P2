@@ -1,0 +1,7 @@
+<map id="include/colorGraph.h" name="include/colorGraph.h">
+<area shape="rect" id="Node000001" title="Public entry point for register allocation through graph coloring." alt="" coords="72,5,228,31"/>
+<area shape="rect" id="Node000002" href="$colorGraph_8cpp.html" title="Register allocation algorithms based on graph coloring, spilling and splitting." alt="" coords="5,79,148,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,42,90,80,87,77,126,38"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html" title="Command&#45;line and interactive entry point for the register allocation tool." alt="" coords="172,79,277,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="174,38,214,77,211,80,170,42"/>
+</map>

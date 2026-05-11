@@ -1,8 +1,20 @@
 /**
- * @file main.cpp
+* @mainpage Register Allocation via Graph Coloring
+ * * @section intro_sec Introduction
+ * This project implements a compiler register allocator using graph coloring algorithms.
+ * It supports four operational modes to map program variables (webs) to physical physical registers:
+ * - **Basic**: Pure simplification-stack graph coloring.
+ * - **Spilling**: Bounded removal of webs to memory using Hopcroft-Tarjan articulation point heuristics.
+ * - **Splitting**: Bounded fragmentation of webs using temporal gap heuristics.
+ * - **Free**: Exact DSATUR graph coloring with a polynomial heuristic fallback.
+ * * @section author_sec Authors
+ * Developed for DA 2025/2026.
+ * - Artur Ferro
+ * - João Leppänen
+ * - Martim Ferreira
+ * * @file main.cpp
  * @brief Command-line and interactive entry point for the register allocation tool.
  */
-
 #include <iostream>
 #include <string>
 #include <vector>

@@ -6,10 +6,10 @@ PROJECT_BRIEF          = "Compiler register allocation through web construction,
 OUTPUT_DIRECTORY       = Documentation
 CREATE_SUBDIRS         = NO
 
-INPUT                  = include src README_UP_TO_2_4.md
+INPUT                  =
 RECURSIVE              = YES
 FILE_PATTERNS          = *.h *.hpp *.cpp *.md
-USE_MDFILE_AS_MAINPAGE = README_UP_TO_2_4.md
+USE_MDFILE_AS_MAINPAGE =
 
 EXTRACT_ALL            = YES
 EXTRACT_PRIVATE        = YES
@@ -28,7 +28,7 @@ WARN_IF_DOC_ERROR      = YES
 WARN_NO_PARAMDOC       = NO
 
 # Project-specific command used throughout the comments.
-ALIASES               += "complexity=@par Time Complexity\n"
+ALIASES               += "complexity=@par Time Complexity:"
 
 ENABLE_PREPROCESSING   = YES
 MACRO_EXPANSION        = YES

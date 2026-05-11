@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['algorithms_0',['Implemented algorithms',['../index.html#autotoc_md4',1,'']]]
+  ['graph_20coloring_0',['Register Allocation via Graph Coloring',['../index.html',1,'']]]
 ];

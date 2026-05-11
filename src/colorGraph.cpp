@@ -317,10 +317,6 @@ namespace {
      * @brief Finds an articulation node if it exists.
      * @complexity O(V+E)
      */
-    /**
-     * @brief Finds an articulation node if it exists.
-     * @complexity O(V+E)
-     */
     bool findArticulationNode(const Graph<Web>& graph, Web& outVictim) {
         std::unordered_map<int, bool> visited;
         std::unordered_map<int, int> disc, low, parent;

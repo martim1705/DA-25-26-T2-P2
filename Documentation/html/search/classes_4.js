@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['programpoint_0',['ProgramPoint',['../struct_program_point.html',1,'']]]
+  ['programpoint_0',['ProgramPoint',['../structProgramPoint.html',1,'']]]
 ];

@@ -1,0 +1,13 @@
+<map id="include/Graph.h" name="include/Graph.h">
+<area shape="rect" id="Node000001" title="Generic adjacency&#45;list graph used as the main representation of the interference graph." alt="" coords="166,5,290,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,85,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,33,89,76,87,71,198,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="110,79,173,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="216,33,168,72,164,68,212,29"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="197,79,259,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="231,31,231,65,225,65,225,31"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="284,79,343,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="243,29,291,68,287,72,240,33"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="367,79,452,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="258,28,368,71,366,76,256,33"/>
+</map>

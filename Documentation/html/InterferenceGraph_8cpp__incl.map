@@ -1,0 +1,24 @@
+<map id="src/InterferenceGraph.cpp" name="src/InterferenceGraph.cpp">
+<area shape="rect" id="Node000001" title="Implementation of live&#45;web interference tests and graph construction." alt="" coords="255,5,446,31"/>
+<area shape="rect" id="Node000002" href="$InterferenceGraph_8h.html" title="Construction and pairwise testing of live&#45;web interference graphs." alt="" coords="275,79,427,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="353,31,353,65,348,65,348,31"/>
+<area shape="rect" id="Node000003" href="$Graph_8h.html" title="Generic adjacency&#45;list graph used as the main representation of the interference graph." alt="" coords="259,152,333,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="344,106,315,143,311,140,340,103"/>
+<area shape="rect" id="Node000009" href="$Structures_8h.html" title="Shared data structures for live ranges, webs, register configuration and coloring results." alt="" coords="398,152,498,177"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="368,102,422,141,419,146,365,106"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,225,85,251"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="260,179,99,224,98,219,258,174"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="390,225,453,251"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="317,175,390,216,388,221,315,180"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="110,225,173,251"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="272,180,180,222,178,217,270,175"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="197,225,256,251"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="286,180,249,217,245,214,283,176"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="280,225,365,251"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="303,177,316,212,311,214,298,179"/>
+<area shape="poly" id="edge11_Node000009_Node000005" title=" " alt="" coords="446,179,433,214,428,212,441,177"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="477,225,536,251"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="460,176,491,213,487,217,456,179"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="561,225,685,251"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="477,175,582,218,580,222,475,180"/>
+</map>
