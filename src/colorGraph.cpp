@@ -145,22 +145,6 @@ namespace {
                 }
             }
 
-            /*This is optimistic not what pessimistic like fig.9 que temos que seguir
-            if (best == nullptr) {
-                // Optimistic coloring: when the simplification rule gets stuck,
-                // push the highest-degree node anyway.
-                int bestDegree = -1;
-                for (const auto vertex : tempGraph.getVertexSet()) {
-                    int degree = static_cast<int>(vertex->getAdj().size());
-                    if (best == nullptr || degree > bestDegree ||
-                       (degree == bestDegree && vertex->getInfo().id < best->getInfo().id)) {
-                        best = vertex;
-                        bestDegree = degree;
-                       }
-                }
-            }
-            */
-
             if (best == nullptr) {
                 // Strict Figure 9 & T2.1 Compliance:
                 // All remaining nodes have degree >= colorCount.
@@ -168,8 +152,6 @@ namespace {
                 // Figure 9's "select node K to spill" step. Therefore, it is infeasible.
                 return AllocationAttempt{};
             }
-
-          //Obsolete if (best == nullptr) break;
 
             Web selected = best->getInfo();
             stack.push(selected);
@@ -199,11 +181,6 @@ namespace {
                     break;
                 }
             }
-            /*Obsolete as well, the chosen color will never be -1 (Pessimistic Adjustent from fig 9.)
-            if (chosenColor == -1) {
-                return AllocationAttempt{};
-            }
-            */
             attempt.colors[current.id] = chosenColor;
             attempt.registersUsed = std::max(attempt.registersUsed, chosenColor + 1);
         }
@@ -258,21 +235,6 @@ namespace {
         AllocationAttempt attempt = tryBasicUpTo(graph, maxRegisters);
         if (!attempt.success) return makeResult(false, webs, {});
         return makeResult(true, webs, attempt.colors);
-    }
-
-    /**
-     * @brief Creates a vector without the selected web ids.
-     * @param webs Original web vector.
-     * @param idsToRemove Web ids to omit.
-     * @return Filtered web vector.
-     * @complexity O(V log R), where R is the number of ids to remove.
-     */
-    std::vector<Web> removeWebs(const std::vector<Web>& webs, const std::set<int>& idsToRemove) {
-        std::vector<Web> kept;
-        for (const auto& web : webs) {
-            if (!idsToRemove.count(web.id)) kept.push_back(web);
-        }
-        return kept;
     }
 
     /**
@@ -358,38 +320,40 @@ namespace {
 
 
     /**
-     * @brief Performs allocation with bounded web spilling using Hopcroft-Tarjan.
-     * * Instead of exponential brute-force combinations, this safely breaks the
-     * interference graph at structural weak points (articulation nodes) in polynomial time.
-     * * @param webs Webs to allocate.
-     * @param maxRegisters Maximum registers available.
-     * @param spillBudget Maximum number of webs that may be moved to memory.
-     * @return Coloring result with spilled webs marked as memory, or failure.
-     * @complexity O(K * (V^2 + E)), where K is the spill budget.
-     */
+         * @brief Performs allocation with bounded web spilling using Hopcroft-Tarjan.
+         * * Safely breaks the interference graph at structural weak points in polynomial time.
+         * Uses dynamic graph updates to avoid O(V^2 * P^2) rebuilds on every iteration.
+         * * @param webs Webs to allocate.
+         * @param maxRegisters Maximum registers available.
+         * @param spillBudget Maximum number of webs that may be moved to memory.
+         * @return Coloring result with spilled webs marked as memory, or failure.
+         * @complexity O(V^2 * P^2 + K * C * (V^2 + E)), where K is the spill budget.
+         */
     ColoringResult spillingAllocation(const std::vector<Web>& webs, int maxRegisters, int spillBudget) {
         ColoringResult basic = basicAllocation(webs, maxRegisters);
         if (basic.success) return basic;
 
-        std::vector<Web> currentWebs = webs;
         std::set<int> spilledIds;
         const int maxSpills = std::min(spillBudget, static_cast<int>(webs.size()));
 
+        // Build the interference graph exactly once
+        Graph<Web> activeGraph = buildInterferenceGraph(webs);
+
         for (int spills = 1; spills <= maxSpills; spills++) {
-            Graph<Web> graph = buildInterferenceGraph(currentWebs);
             Web victim;
 
             // Heuristic 1: Shatter the graph at an articulation point
-            if (!findArticulationNode(graph, victim)) {
+            if (!findArticulationNode(activeGraph, victim)) {
                 // Heuristic 2: Fallback to the most entangled node
-                victim = findMaxDegreeNode(graph);
+                victim = findMaxDegreeNode(activeGraph);
             }
 
             spilledIds.insert(victim.id);
-            currentWebs = removeWebs(currentWebs, {victim.id});
 
-            Graph<Web> reducedGraph = buildInterferenceGraph(currentWebs);
-            AllocationAttempt attempt = tryBasicUpTo(reducedGraph, maxRegisters);
+            // Dynamically update the graph in O(V + E) instead of rebuilding from scratch
+            activeGraph.removeVertex(victim);
+
+            AllocationAttempt attempt = tryBasicUpTo(activeGraph, maxRegisters);
 
             if (attempt.success) {
                 for (int id : spilledIds) attempt.colors[id] = -1;
@@ -413,22 +377,28 @@ namespace {
 
     /**
      * @brief Splits a web into two consecutive derived webs.
+     *
+     * Child web identifiers are generated mathematically based on the parent's id
+     * (parent.id * 100 + 1 and + 2) to maintain a traceable lineage of splits.
+     *
      * @param original Web to split.
      * @param splitIndex Last point index kept in the left web.
-     * @param newId Identifier assigned to the right derived web.
      * @param left Output left derived web.
      * @param right Output right derived web.
      * @return true if the split is valid.
      * @complexity O(Q), where Q is the number of points copied from the original web.
      */
-    bool splitWeb(const Web& original, size_t splitIndex, int newId, Web& left, Web& right) {
+    bool splitWeb(const Web& original, size_t splitIndex, Web& left, Web& right) {
         if (original.points.size() < 2 || splitIndex >= original.points.size() - 1) return false;
 
         left = original;
         right = original;
         left.points.assign(original.points.begin(), original.points.begin() + static_cast<long>(splitIndex) + 1);
         right.points.assign(original.points.begin() + static_cast<long>(splitIndex) + 1, original.points.end());
-        right.id = newId;
+
+        left.id = (original.id * 100) + 1;
+        right.id = (original.id * 100) + 2;
+
         sortWebPoints(left);
         sortWebPoints(right);
         return true;
@@ -439,11 +409,10 @@ namespace {
      * @param webs Current web collection.
      * @param webId Identifier of the web to split.
      * @param splitIndex Split boundary passed to splitWeb().
-     * @param newId Identifier assigned to the new right-hand web.
      * @return Updated web collection sorted by id.
      * @complexity O(V log V + Q), where Q is the point count of the split web.
      */
-    std::vector<Web> replaceWithSplit(const std::vector<Web>& webs, int webId, size_t splitIndex, int newId) {
+    std::vector<Web> replaceWithSplit(const std::vector<Web>& webs, int webId, size_t splitIndex) {
         std::vector<Web> result;
         for (const auto& web : webs) {
             if (web.id != webId) {
@@ -451,7 +420,7 @@ namespace {
                 continue;
             }
             Web left, right;
-            if (splitWeb(web, splitIndex, newId, left, right)) {
+            if (splitWeb(web, splitIndex, left, right)) {
                 result.push_back(left);
                 result.push_back(right);
             } else {
@@ -475,7 +444,6 @@ namespace {
     SplitCandidate chooseSplitCandidate(const std::vector<Web>& webs) {
         Graph<Web> currentGraph = buildInterferenceGraph(webs);
         SplitCandidate best;
-        int nextId = maxWebId(webs) + 1;
 
         for (const auto& web : webs) {
             if (web.points.size() < 2) continue;
@@ -485,7 +453,7 @@ namespace {
             }
 
             for (size_t splitIndex = 0; splitIndex + 1 < web.points.size(); splitIndex++) {
-                std::vector<Web> candidateWebs = replaceWithSplit(webs, web.id, splitIndex, nextId);
+                std::vector<Web> candidateWebs = replaceWithSplit(webs, web.id, splitIndex);
                 Graph<Web> candidateGraph = buildInterferenceGraph(candidateWebs);
                 SplitCandidate candidate;
                 candidate.valid = true;
@@ -528,8 +496,7 @@ namespace {
             SplitCandidate candidate = chooseSplitCandidate(currentWebs);
             if (!candidate.valid) break;
 
-            int newId = maxWebId(currentWebs) + 1;
-            currentWebs = replaceWithSplit(currentWebs, candidate.webId, candidate.splitIndex, newId);
+            currentWebs = replaceWithSplit(currentWebs, candidate.webId, candidate.splitIndex);
 
             ColoringResult attempt = basicAllocation(currentWebs, maxRegisters);
             if (attempt.success) return attempt;
@@ -681,11 +648,14 @@ namespace {
     }
 
     /**
-         * @brief Custom allocation strategy based on DSATUR with Hopcroft-Tarjan spilling fallback.
-         * @param webs Webs to allocate.
-         * @param maxRegisters Maximum registers available.
-         * @return Exact coloring if possible; otherwise a coloring with heuristically spilled webs.
-         */
+     * @brief Custom allocation strategy based on DSATUR with Hopcroft-Tarjan spilling fallback.
+     * * Uses dynamic graph updates to avoid O(V^2 * P^2) rebuilds during the fallback phase.
+     * * @param webs Webs to allocate.
+     * @param maxRegisters Maximum registers available.
+     * @return Exact coloring if possible; otherwise a coloring with heuristically spilled webs.
+     * @complexity O(V^2 * P^2 + C^V) for the exact phase (exponential bounded in practice by a hard call limit),
+     * plus O(V * C * (V^2 + E)) for the worst-case fallback spilling phase.
+     */
     ColoringResult freeAllocation(const std::vector<Web>& webs, int maxRegisters) {
         Graph<Web> graph = buildInterferenceGraph(webs);
 
@@ -694,26 +664,28 @@ namespace {
         if (exact.success) return makeResult(true, webs, exact.colors);
 
         // 2. If it fails, use polynomial heuristics to spill.
-        std::vector<Web> currentWebs = webs;
         std::set<int> spilledIds;
         const int n = static_cast<int>(webs.size());
 
+        // Copy the already built graph for dynamic updates
+        Graph<Web> activeGraph = graph;
+
         for (int spills = 1; spills <= n; spills++) {
-            Graph<Web> currentGraph = buildInterferenceGraph(currentWebs);
             Web victim;
 
             // Heuristic 1: Break at articulation node
-            if (!findArticulationNode(currentGraph, victim)) {
+            if (!findArticulationNode(activeGraph, victim)) {
                 // Heuristic 2: Fallback to max degree
-                victim = findMaxDegreeNode(currentGraph);
+                victim = findMaxDegreeNode(activeGraph);
             }
 
             spilledIds.insert(victim.id);
-            currentWebs = removeWebs(currentWebs, {victim.id});
+
+            // Dynamically update the graph in O(V + E)
+            activeGraph.removeVertex(victim);
 
             // Re-test the newly weakened graph with the exact DSATUR algorithm
-            Graph<Web> reducedGraph = buildInterferenceGraph(currentWebs);
-            AllocationAttempt attempt = tryDsaturUpTo(reducedGraph, maxRegisters);
+            AllocationAttempt attempt = tryDsaturUpTo(activeGraph, maxRegisters);
 
             if (attempt.success) {
                 for (int id : spilledIds) attempt.colors[id] = -1;
