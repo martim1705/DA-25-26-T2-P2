@@ -99,6 +99,8 @@ std::vector<LiveRange> parseRangesFile(const std::string& filename) {
     }
 
     std::string line;
+    std::string lastVariable; // State tracking for continuation lines
+
     while (getline(file, line)) {
         if (isCommentOrBlank(line)) continue;
 
@@ -109,11 +111,20 @@ std::vector<LiveRange> parseRangesFile(const std::string& filename) {
         }
 
         LiveRange liveRange;
-        liveRange.variable = trim(line.substr(0, colonPos));
-        if (liveRange.variable.empty()) {
-            std::cerr << "Invalid range line with empty variable: " << line << '\n';
+        std::string parsedVar = trim(line.substr(0, colonPos));
+
+        // Update the tracked variable if a new one is provided
+        if (!parsedVar.empty()) {
+            lastVariable = parsedVar;
+        }
+
+        // If we still don't have a variable, the file started with a bad line
+        if (lastVariable.empty()) {
+            std::cerr << "Invalid range line with no preceding variable: " << line << '\n';
             continue;
         }
+
+        liveRange.variable = lastVariable;
 
         std::string pointsText = line.substr(colonPos + 1);
         std::stringstream ss(pointsText);

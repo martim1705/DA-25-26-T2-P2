@@ -8,7 +8,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 include_directories(include)
 
 add_executable(projeto2
-        include/Allocator.h
         include/Graph.h
         include/Parser.h
         include/Structures.h
@@ -16,7 +15,6 @@ add_executable(projeto2
         include/InterferenceGraph.h
         include/colorGraph.h
         include/Output.h
-        src/Allocator.cpp
         src/main.cpp
         src/Parser.cpp
         src/Web.cpp

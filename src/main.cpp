@@ -1,18 +1,21 @@
 /**
 * @mainpage Register Allocation via Graph Coloring
- * * @section intro_sec Introduction
+ *
+ * @section intro_sec Introduction
  * This project implements a compiler register allocator using graph coloring algorithms.
- * It supports four operational modes to map program variables (webs) to physical physical registers:
- * - **Basic**: Pure simplification-stack graph coloring.
- * - **Spilling**: Bounded removal of webs to memory using Hopcroft-Tarjan articulation point heuristics.
- * - **Splitting**: Bounded fragmentation of webs using temporal gap heuristics.
- * - **Free**: Exact DSATUR graph coloring with a polynomial heuristic fallback.
- * * @section author_sec Authors
+ * It supports four operational modes to map program variables (webs) to physical registers:
+ * * - **Basic**: Pure simplification-stack graph coloring. Nodes with a degree lower than the number of available registers are pushed to a stack for later coloring. If the graph cannot be simplified further (all remaining nodes equal or exceed the register count), the allocation immediately aborts as infeasible.
+ * - **Spilling**: Bounded removal of webs to memory. If basic allocation fails, it selectively spills up to K webs using structural heuristics (Hopcroft-Tarjan articulation points, falling back to maximum degree) and iteratively retries the basic allocator.
+ * - **Splitting**: Bounded fragmentation of webs. If basic allocation fails, it uses a greedy search to evaluate all possible split points across all webs. It applies up to K splits, always choosing the one that most reduces total interference edges and maximum graph degree, iteratively retrying the basic allocator.
+ * - **Free**: Exact mathematical coloring using DSATUR backtracking, with a fallback to polynomial-time structural spilling heuristics if an exact coloring is not found.
+ *
+ * @section author_sec Authors
  * Developed for DA 2025/2026.
  * - Artur Ferro
  * - João Leppänen
  * - Martim Ferreira
- * * @file main.cpp
+ *
+ * @file main.cpp
  * @brief Command-line and interactive entry point for the register allocation tool.
  */
 #include <iostream>

@@ -73,25 +73,20 @@ $(function() {
   <div class="headertitle"><div class="title">Register Allocation via <a class="el" href="classGraph.html" title="Generic directed graph represented by adjacency lists.">Graph</a> Coloring </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><ul>
-<li></li>
-</ul>
-<h1><a class="anchor" id="intro_sec"></a>
+<div class="textblock"><h1><a class="anchor" id="intro_sec"></a>
 Introduction</h1>
-<p>This project implements a compiler register allocator using graph coloring algorithms. It supports four operational modes to map program variables (webs) to physical physical registers:</p><ul>
-<li><b>Basic</b>: Pure simplification-stack graph coloring.</li>
-<li><b>Spilling</b>: Bounded removal of webs to memory using Hopcroft-Tarjan articulation point heuristics.</li>
-<li><b>Splitting</b>: Bounded fragmentation of webs using temporal gap heuristics.</li>
-<li><b>Free</b>: Exact DSATUR graph coloring with a polynomial heuristic fallback.</li>
-<li></li>
+<p>This project implements a compiler register allocator using graph coloring algorithms. It supports four operational modes to map program variables (webs) to physical registers:</p><ul>
+<li>- <b>Basic</b>: Pure simplification-stack graph coloring. Nodes with a degree lower than the number of available registers are pushed to a stack for later coloring. If the graph cannot be simplified further (all remaining nodes equal or exceed the register count), the allocation immediately aborts as infeasible.</li>
+<li><b>Spilling</b>: Bounded removal of webs to memory. If basic allocation fails, it selectively spills up to K webs using structural heuristics (Hopcroft-Tarjan articulation points, falling back to maximum degree) and iteratively retries the basic allocator.</li>
+<li><b>Splitting</b>: Bounded fragmentation of webs. If basic allocation fails, it uses a greedy search to evaluate all possible split points across all webs. It applies up to K splits, always choosing the one that most reduces total interference edges and maximum graph degree, iteratively retrying the basic allocator.</li>
+<li><b>Free</b>: Exact mathematical coloring using DSATUR backtracking, with a fallback to polynomial-time structural spilling heuristics if an exact coloring is not found.</li>
 </ul>
 <h1><a class="anchor" id="author_sec"></a>
 Authors</h1>
 <p>Developed for DA 2025/2026.</p><ul>
 <li>Artur Ferro</li>
 <li>João Leppänen</li>
-<li>Martim Ferreira</li>
-<li></li>
+<li>Martim Ferreira </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
