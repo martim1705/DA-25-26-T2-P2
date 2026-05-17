@@ -368,7 +368,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\Allocator.h" />
     <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\Graph.h" />
     <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\Parser.h" />
     <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\Structures.h" />
@@ -376,7 +375,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\InterferenceGraph.h" />
     <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\colorGraph.h" />
     <ClInclude Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\include\Output.h" />
-    <ClCompile Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\src\Allocator.cpp" />
     <ClCompile Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\src\main.cpp" />
     <ClCompile Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\src\Parser.cpp" />
     <ClCompile Include="C:\Users\artur\Desktop\DA-25-26-T2-P2\src\Web.cpp" />

@@ -6,10 +6,12 @@ PROJECT_BRIEF          = "Compiler register allocation through web construction,
 OUTPUT_DIRECTORY       = Documentation
 CREATE_SUBDIRS         = NO
 
-INPUT                  =
+INPUT                  = include src
 RECURSIVE              = YES
 FILE_PATTERNS          = *.h *.hpp *.cpp *.md
 USE_MDFILE_AS_MAINPAGE =
+EXCLUDE                = build cmake-build-debug Documentation .git input output
+EXCLUDE_PATTERNS       = */CMakeFiles/* */CompilerIdCXX/* */CompilerIdC/*
 
 EXTRACT_ALL            = YES
 EXTRACT_PRIVATE        = YES

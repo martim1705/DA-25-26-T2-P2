@@ -20,8 +20,11 @@ namespace {
      * @brief Internal result of a single coloring attempt.
      */
     struct AllocationAttempt {
+        /** @brief true when the coloring attempt found a valid assignment. */
         bool success = false;
+        /** @brief Mapping from web id to assigned register, or -1 for spilled webs. */
         std::unordered_map<int, int> colors;
+        /** @brief Number of registers actually used by the attempt. */
         int registersUsed = 0;
     };
 
@@ -29,11 +32,17 @@ namespace {
      * @brief Candidate split and its predicted graph-quality metrics.
      */
     struct SplitCandidate {
+        /** @brief true when this candidate represents a valid split. */
         bool valid = false;
+        /** @brief Identifier of the web selected for splitting. */
         int webId = -1;
+        /** @brief Last point index kept in the left side of the split. */
         size_t splitIndex = 0;
+        /** @brief Number of undirected interference edges after applying the split. */
         int resultingEdges = 0;
+        /** @brief Maximum graph degree after applying the split. */
         int resultingMaxDegree = 0;
+        /** @brief Degree of the original web before the split. */
         int originalDegree = 0;
     };
 
@@ -238,8 +247,10 @@ namespace {
     }
 
     /**
-     * @brief Helper to find the highest degree node cleanly.
-     * @complexity O(V)
+     * @brief Finds the highest-degree web in the current graph.
+     * @param graph Interference graph to inspect.
+     * @return Web with maximum degree, breaking ties by lower id.
+     * @complexity O(V), where V is the number of vertices.
      */
     Web findMaxDegreeNode(const Graph<Web>& graph) {
         int maxDegree = -1;
@@ -256,8 +267,15 @@ namespace {
     }
 
     /**
-     * @brief Hopcroft-Tarjan DFS algorithm to find an articulation point.
-     * @complexity O(V+E)
+     * @brief Performs the Hopcroft-Tarjan DFS step used to detect articulation points.
+     * @param u Current DFS vertex.
+     * @param visited Map marking visited web ids.
+     * @param disc Discovery time per web id.
+     * @param low Lowest reachable discovery time per web id.
+     * @param parent DFS parent per web id.
+     * @param is_ap Output map marking articulation-point web ids.
+     * @param time Mutable DFS timestamp counter.
+     * @complexity O(V + E) across a complete DFS traversal.
      */
     void articulationDFS(const Vertex<Web>* u, std::unordered_map<int, bool>& visited,
                          std::unordered_map<int, int>& disc, std::unordered_map<int, int>& low,
@@ -287,8 +305,11 @@ namespace {
     }
 
     /**
-     * @brief Finds an articulation node if it exists.
-     * @complexity O(V+E)
+     * @brief Finds an articulation web if one exists.
+     * @param graph Interference graph to inspect.
+     * @param outVictim Output web selected as the articulation victim.
+     * @return true if an articulation point was found.
+     * @complexity O(V + E), where V is the number of vertices and E the number of edges.
      */
     bool findArticulationNode(const Graph<Web>& graph, Web& outVictim) {
         std::unordered_map<int, bool> visited;
@@ -320,15 +341,17 @@ namespace {
 
 
     /**
-         * @brief Performs allocation with bounded web spilling using Hopcroft-Tarjan.
-         * * Safely breaks the interference graph at structural weak points in polynomial time.
-         * Uses dynamic graph updates to avoid O(V^2 * P^2) rebuilds on every iteration.
-         * * @param webs Webs to allocate.
-         * @param maxRegisters Maximum registers available.
-         * @param spillBudget Maximum number of webs that may be moved to memory.
-         * @return Coloring result with spilled webs marked as memory, or failure.
-         * @complexity O(V^2 * P^2 + K * C * (V^2 + E)), where K is the spill budget.
-         */
+     * @brief Performs allocation with bounded web spilling using Hopcroft-Tarjan.
+     *
+     * Safely breaks the interference graph at structural weak points in polynomial time.
+     * Uses dynamic graph updates to avoid O(V^2 * P^2) rebuilds on every iteration.
+     *
+     * @param webs Webs to allocate.
+     * @param maxRegisters Maximum registers available.
+     * @param spillBudget Maximum number of webs that may be moved to memory.
+     * @return Coloring result with spilled webs marked as memory, or failure.
+     * @complexity O(V^2 * P^2 + K * C * (V^2 + E)), where K is the spill budget.
+     */
     ColoringResult spillingAllocation(const std::vector<Web>& webs, int maxRegisters, int spillBudget) {
         ColoringResult basic = basicAllocation(webs, maxRegisters);
         if (basic.success) return basic;
@@ -649,8 +672,10 @@ namespace {
 
     /**
      * @brief Custom allocation strategy based on DSATUR with Hopcroft-Tarjan spilling fallback.
-     * * Uses dynamic graph updates to avoid O(V^2 * P^2) rebuilds during the fallback phase.
-     * * @param webs Webs to allocate.
+     *
+     * Uses dynamic graph updates to avoid O(V^2 * P^2) rebuilds during the fallback phase.
+     *
+     * @param webs Webs to allocate.
      * @param maxRegisters Maximum registers available.
      * @return Exact coloring if possible; otherwise a coloring with heuristically spilled webs.
      * @complexity O(V^2 * P^2 + C^V) for the exact phase (exponential bounded in practice by a hard call limit),

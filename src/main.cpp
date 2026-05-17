@@ -4,7 +4,7 @@
  * @section intro_sec Introduction
  * This project implements a compiler register allocator using graph coloring algorithms.
  * It supports four operational modes to map program variables (webs) to physical registers:
- * * - **Basic**: Pure simplification-stack graph coloring. Nodes with a degree lower than the number of available registers are pushed to a stack for later coloring. If the graph cannot be simplified further (all remaining nodes equal or exceed the register count), the allocation immediately aborts as infeasible.
+ * - **Basic**: Pure simplification-stack graph coloring. Nodes with a degree lower than the number of available registers are pushed to a stack for later coloring. If the graph cannot be simplified further (all remaining nodes equal or exceed the register count), the allocation immediately aborts as infeasible.
  * - **Spilling**: Bounded removal of webs to memory. If basic allocation fails, it selectively spills up to K webs using structural heuristics (Hopcroft-Tarjan articulation points, falling back to maximum degree) and iteratively retries the basic allocator.
  * - **Splitting**: Bounded fragmentation of webs. If basic allocation fails, it uses a greedy search to evaluate all possible split points across all webs. It applies up to K splits, always choosing the one that most reduces total interference edges and maximum graph degree, iteratively retrying the basic allocator.
  * - **Free**: Exact mathematical coloring using DSATUR backtracking, with a fallback to polynomial-time structural spilling heuristics if an exact coloring is not found.
@@ -32,6 +32,28 @@
 using namespace std;
 
 namespace {
+    /** @brief Default folder used by the convenience menu option for live-range input files. */
+    const string DEFAULT_RANGES_FOLDER = "input/ranges/";
+
+    /** @brief Default folder used by the convenience menu option for register-configuration input files. */
+    const string DEFAULT_REGISTERS_FOLDER = "input/registers/";
+
+    /**
+     * @brief Builds an input path by prepending a fixed folder to a file name.
+     *
+     * This is intentionally simple and hardcoded for the demo menu: the user writes only
+     * something like `ranges1.txt` or `registers1.txt`, and the function resolves it under
+     * the corresponding input subfolder.
+     *
+     * @param folder Fixed input folder ending in a path separator.
+     * @param filename File name typed by the user.
+     * @return Full relative path to the input file.
+     * @complexity O(F), where F is the file-name length.
+     */
+    string inputPathFromDefaultFolder(const string& folder, const string& filename) {
+        return folder + filename;
+    }
+
     /**
      * @brief Checks whether an algorithm name is supported by the allocator.
      * @param algorithm Algorithm name read from the configuration file.
@@ -85,6 +107,11 @@ namespace {
 
     /**
      * @brief Runs the simple interactive menu requested for the demo.
+     *
+     * Option 1 keeps the original behavior and asks for complete paths.
+     * Option 2 is a convenience option that prepends `input/ranges/` and `input/registers/`
+     * to the file names typed by the user.
+     *
      * @return Process exit code.
      * @complexity Each allocation option has the complexity of runAllocation(); menu overhead is O(1).
      */
@@ -95,7 +122,8 @@ namespace {
 
         while (true) {
             cout << "\nRegister Allocation Tool\n";
-            cout << "1. Run allocation\n";
+            cout << "1. Run allocation with explicit paths\n";
+            cout << "2. Run allocation from default input folders\n";
             cout << "0. Exit\n";
             cout << "Option: ";
 
@@ -104,15 +132,25 @@ namespace {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (option == 0) return 0;
-            if (option != 1) {
+            if (option != 1 && option != 2) {
                 cout << "Invalid option.\n";
                 continue;
             }
 
-            cout << "Ranges file: ";
-            getline(cin, rangesFile);
-            cout << "Registers file: ";
-            getline(cin, registersFile);
+            if (option == 1) {
+                cout << "Ranges file path: ";
+                getline(cin, rangesFile);
+                cout << "Registers file path: ";
+                getline(cin, registersFile);
+            } else {
+                cout << "Ranges file name (inside " << DEFAULT_RANGES_FOLDER << "): ";
+                getline(cin, rangesFile);
+                cout << "Registers file name (inside " << DEFAULT_REGISTERS_FOLDER << "): ";
+                getline(cin, registersFile);
+                rangesFile = inputPathFromDefaultFolder(DEFAULT_RANGES_FOLDER, rangesFile);
+                registersFile = inputPathFromDefaultFolder(DEFAULT_REGISTERS_FOLDER, registersFile);
+            }
+
             cout << "Output file: ";
             getline(cin, outputFile);
 
