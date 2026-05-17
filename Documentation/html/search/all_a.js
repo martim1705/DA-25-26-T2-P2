@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['line_0',['line',['../structProgramPoint.html#ad7f4a982da0c6a8b83db5d397ff1ec38',1,'ProgramPoint']]],
-  ['liverange_1',['LiveRange',['../structLiveRange.html',1,'']]],
-  ['low_2',['low',['../classVertex.html#a35d937c418952520cfa26b098e86b755',1,'Vertex']]]
+  ['num_0',['num',['../class_vertex.html#aeb941bcd51ef71c6101e02eaed1cae12',1,'Vertex']]],
+  ['numregisters_1',['numRegisters',['../struct_register_config.html#ad4a9ed282c6645cfa2465124c39ee393',1,'RegisterConfig']]]
 ];

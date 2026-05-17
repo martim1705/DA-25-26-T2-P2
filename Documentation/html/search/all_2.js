@@ -1,5 +1,10 @@
 var searchData=
 [
-  ['buildinterferencegraph_0',['buildinterferencegraph',['../InterferenceGraph_8h.html#a3be4f9182ab8cbbdb1488e9c5a388777',1,'buildInterferenceGraph(const std::vector&lt; Web &gt; &amp;webs):&#160;InterferenceGraph.cpp'],['../InterferenceGraph_8cpp.html#a3be4f9182ab8cbbdb1488e9c5a388777',1,'buildInterferenceGraph(const std::vector&lt; Web &gt; &amp;webs):&#160;InterferenceGraph.cpp']]],
-  ['buildwebs_1',['buildwebs',['../Web_8h.html#a249ad3dba004ecbeb4e6396c4cd432c4',1,'buildWebs(const std::vector&lt; LiveRange &gt; &amp;ranges):&#160;Web.cpp'],['../Web_8cpp.html#a249ad3dba004ecbeb4e6396c4cd432c4',1,'buildWebs(const std::vector&lt; LiveRange &gt; &amp;ranges):&#160;Web.cpp']]]
+  ['clear_0',['clear',['../class_graph.html#a696224426bb2dd11eccb30a0f0494db4',1,'Graph']]],
+  ['colorgraph_2ecpp_1',['colorGraph.cpp',['../color_graph_8cpp.html',1,'']]],
+  ['colorgraph_2eh_2',['colorGraph.h',['../color_graph_8h.html',1,'']]],
+  ['colorgraphfunc_3',['colorGraphFunc',['../color_graph_8h.html#a86efa73da882e5c9aa1f954fcd1e0880',1,'colorGraphFunc(const Graph&lt; Web &gt; &amp;graph, int N, const std::string &amp;mode, int K):&#160;colorGraph.cpp'],['../color_graph_8cpp.html#ab30d0222901128430abea17f5f8d33fd',1,'colorGraphFunc(const Graph&lt; Web &gt; &amp;graph, const int N, const std::string &amp;mode, int K):&#160;colorGraph.cpp']]],
+  ['coloring_4',['Register Allocation via Graph Coloring',['../index.html',1,'']]],
+  ['coloringresult_5',['ColoringResult',['../struct_coloring_result.html',1,'']]],
+  ['colorofweb_6',['colorOfWeb',['../struct_coloring_result.html#a9483ae3dc87f2e20d4be6be00e6d4a6e',1,'ColoringResult']]]
 ];

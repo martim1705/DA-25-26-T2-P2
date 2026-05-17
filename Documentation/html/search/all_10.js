@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['register_20allocation_20via_20graph_20coloring_0',['Register Allocation via Graph Coloring',['../index.html',1,'']]],
-  ['registerconfig_1',['RegisterConfig',['../structRegisterConfig.html',1,'']]],
-  ['removeedge_2',['removeedge',['../classVertex.html#ac1f1dd0a8e1019a242f1120d6559c754',1,'Vertex::removeEdge()'],['../classGraph.html#a8949d071d45bf93e171e275462e1007a',1,'Graph::removeEdge()']]],
-  ['removeoutgoingedges_3',['removeOutgoingEdges',['../classVertex.html#a414ce58fdf35ee5200a82912f3865506',1,'Vertex']]],
-  ['removevertex_4',['removeVertex',['../classGraph.html#af9c903104ad69a7782979fa9caedf163',1,'Graph']]],
-  ['reverse_5',['reverse',['../classEdge.html#a6c1e5191f85afbd20cf6198815c9b079',1,'Edge']]]
+  ['variable_0',['variable',['../struct_live_range.html#a83f4bdb3ba704524fddd14b1d975d7c8',1,'LiveRange::variable'],['../struct_web.html#a439e3c2fbedccfdd8c34dc780066fb4a',1,'Web::variable']]],
+  ['vertex_1',['Vertex',['../class_vertex.html',1,'Vertex&lt; T &gt;'],['../class_vertex.html#afcbdd4d4198b672356559cb8fa088408',1,'Vertex::Vertex()']]],
+  ['vertexset_2',['vertexSet',['../class_graph.html#a26b3a6b9c61f02f5b2cd38ad4c6a4953',1,'Graph']]],
+  ['via_20graph_20coloring_3',['Register Allocation via Graph Coloring',['../index.html',1,'']]],
+  ['visited_4',['visited',['../class_vertex.html#a187a2fe4ff50261cf3c15b8cda7dfc56',1,'Vertex']]]
 ];

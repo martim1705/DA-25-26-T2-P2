@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['allocator_2ecpp_0',['Allocator.cpp',['../Allocator_8cpp.html',1,'']]],
-  ['allocator_2eh_1',['Allocator.h',['../Allocator_8h.html',1,'']]]
+  ['colorgraph_2ecpp_0',['colorGraph.cpp',['../color_graph_8cpp.html',1,'']]],
+  ['colorgraph_2eh_1',['colorGraph.h',['../color_graph_8h.html',1,'']]]
 ];

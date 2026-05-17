@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['register_20allocation_20via_20graph_20coloring_0',['Register Allocation via Graph Coloring',['../index.html',1,'']]]
+  ['introduction_0',['Introduction',['../index.html#intro_sec',1,'']]]
 ];

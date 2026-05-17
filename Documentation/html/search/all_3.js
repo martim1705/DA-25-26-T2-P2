@@ -1,19 +1,8 @@
 var searchData=
 [
-  ['clear_0',['clear',['../classGraph.html#a696224426bb2dd11eccb30a0f0494db4',1,'Graph']]],
-  ['cmakecxxcompilerid_2ecpp_1',['cmakecxxcompilerid.cpp',['../build_2CMakeFiles_24_83_81_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html',1,'(Global Namespace)'],['../cmake-build-debug_2CMakeFiles_24_81_82_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html',1,'(Global Namespace)']]],
-  ['colorgraph_2ecpp_2',['colorGraph.cpp',['../colorGraph_8cpp.html',1,'']]],
-  ['colorgraph_2eh_3',['colorGraph.h',['../colorGraph_8h.html',1,'']]],
-  ['colorgraphfunc_4',['colorgraphfunc',['../colorGraph_8cpp.html#ab30d0222901128430abea17f5f8d33fd',1,'colorGraphFunc(const Graph&lt; Web &gt; &amp;graph, const int N, const std::string &amp;mode, int K):&#160;colorGraph.cpp'],['../colorGraph_8h.html#a86efa73da882e5c9aa1f954fcd1e0880',1,'colorGraphFunc(const Graph&lt; Web &gt; &amp;graph, int N, const std::string &amp;mode, int K):&#160;colorGraph.cpp']]],
-  ['coloring_5',['Register Allocation via Graph Coloring',['../index.html',1,'']]],
-  ['coloringresult_6',['ColoringResult',['../structColoringResult.html',1,'']]],
-  ['colorofweb_7',['colorOfWeb',['../structColoringResult.html#a9483ae3dc87f2e20d4be6be00e6d4a6e',1,'ColoringResult']]],
-  ['compiler_5fid_8',['compiler_id',['../build_2CMakeFiles_24_83_81_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#a81dee0709ded976b2e0319239f72d174',1,'COMPILER_ID:&#160;CMakeCXXCompilerId.cpp'],['../cmake-build-debug_2CMakeFiles_24_81_82_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#a81dee0709ded976b2e0319239f72d174',1,'COMPILER_ID:&#160;CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_9',['cxx_std',['../build_2CMakeFiles_24_83_81_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#a34cc889e576a1ae6c84ae9e0a851ba21',1,'CXX_STD:&#160;CMakeCXXCompilerId.cpp'],['../cmake-build-debug_2CMakeFiles_24_81_82_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#a34cc889e576a1ae6c84ae9e0a851ba21',1,'CXX_STD:&#160;CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_5f11_10',['cxx_std_11',['../build_2CMakeFiles_24_83_81_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#a2c21af1889e9ca5cda36069184cc3234',1,'CXX_STD_11:&#160;CMakeCXXCompilerId.cpp'],['../cmake-build-debug_2CMakeFiles_24_81_82_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#a2c21af1889e9ca5cda36069184cc3234',1,'CXX_STD_11:&#160;CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_5f14_11',['cxx_std_14',['../build_2CMakeFiles_24_83_81_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#a39fb4789a452bfb5df17d40f640dd720',1,'CXX_STD_14:&#160;CMakeCXXCompilerId.cpp'],['../cmake-build-debug_2CMakeFiles_24_81_82_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#a39fb4789a452bfb5df17d40f640dd720',1,'CXX_STD_14:&#160;CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_5f17_12',['cxx_std_17',['../build_2CMakeFiles_24_83_81_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#ae17f1ae0bf56cf631eadff4f73e96ff9',1,'CXX_STD_17:&#160;CMakeCXXCompilerId.cpp'],['../cmake-build-debug_2CMakeFiles_24_81_82_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#ae17f1ae0bf56cf631eadff4f73e96ff9',1,'CXX_STD_17:&#160;CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_5f20_13',['cxx_std_20',['../build_2CMakeFiles_24_83_81_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#aa52ec6104623a66734cc5d5d28733bed',1,'CXX_STD_20:&#160;CMakeCXXCompilerId.cpp'],['../cmake-build-debug_2CMakeFiles_24_81_82_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#aa52ec6104623a66734cc5d5d28733bed',1,'CXX_STD_20:&#160;CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_5f23_14',['cxx_std_23',['../build_2CMakeFiles_24_83_81_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#ae5e2d955d2884c65b7de2e1ad29a4f1d',1,'CXX_STD_23:&#160;CMakeCXXCompilerId.cpp'],['../cmake-build-debug_2CMakeFiles_24_81_82_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#ae5e2d955d2884c65b7de2e1ad29a4f1d',1,'CXX_STD_23:&#160;CMakeCXXCompilerId.cpp']]],
-  ['cxx_5fstd_5f98_15',['cxx_std_98',['../build_2CMakeFiles_24_83_81_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#a2454727f55dd7af9210ab341ca8be2c8',1,'CXX_STD_98:&#160;CMakeCXXCompilerId.cpp'],['../cmake-build-debug_2CMakeFiles_24_81_82_2CompilerIdCXX_2CMakeCXXCompilerId_8cpp.html#a2454727f55dd7af9210ab341ca8be2c8',1,'CXX_STD_98:&#160;CMakeCXXCompilerId.cpp']]]
+  ['deleteedge_0',['deleteEdge',['../class_vertex.html#a622503fe44ef12d5c39bd1043d47865c',1,'Vertex']]],
+  ['deletematrix_1',['deleteMatrix',['../_graph_8h.html#ad56527992afe31a371065e795da57d25',1,'deleteMatrix(int **m, int n):&#160;Graph.h'],['../_graph_8h.html#af077bc8682a1a1d97e30b08eb1131b19',1,'deleteMatrix(double **m, int n):&#160;Graph.h']]],
+  ['dest_2',['dest',['../class_edge.html#ae4d65678b91bd9d814af4720ad87cd0c',1,'Edge']]],
+  ['dist_3',['dist',['../class_vertex.html#a08a2b813e77f97aa8b6c1d252e5417f7',1,'Vertex']]],
+  ['distmatrix_4',['distMatrix',['../class_graph.html#a4517f4351bc7f0348369b25b7c0b44fe',1,'Graph']]]
 ];
