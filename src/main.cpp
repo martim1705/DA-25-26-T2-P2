@@ -22,6 +22,8 @@
 #include <string>
 #include <vector>
 #include <limits>
+#include <filesystem>
+#include <fstream> // Added for file existence checking
 #include "Parser.h"
 #include "Web.h"
 #include "Graph.h"
@@ -39,26 +41,33 @@ namespace {
     const string DEFAULT_REGISTERS_FOLDER = "input/registers/";
 
     /**
-     * @brief Builds an input path by prepending a fixed folder to a file name.
+     * @brief Builds an input path and smartly resolves it regardless of the working directory.
      *
-     * This is intentionally simple and hardcoded for the demo menu: the user writes only
-     * something like `ranges1.txt` or `registers1.txt`, and the function resolves it under
-     * the corresponding input subfolder.
-     *
-     * @param folder Fixed input folder ending in a path separator.
-     * @param filename File name typed by the user.
-     * @return Full relative path to the input file.
-     * @complexity O(F), where F is the file-name length.
+     * It first checks the standard relative path. If that fails (e.g., the user is running
+     * the program from inside the build/ directory), it falls back to looking one directory up.
      */
     string inputPathFromDefaultFolder(const string& folder, const string& filename) {
-        return folder + filename;
+        string standardPath = folder + filename;
+
+        // If it exists in the current directory (running from project root)
+        if (std::filesystem::exists(standardPath)) {
+            return standardPath;
+        }
+
+        // Fallback: check one directory up (running from build/ folder)
+        string fallbackPath = "../" + folder + filename;
+        if (std::filesystem::exists(fallbackPath)) {
+            return fallbackPath;
+        }
+
+        // If neither exists, just return standard and let the later error-handlers catch it
+        return standardPath;
     }
 
     /**
      * @brief Checks whether an algorithm name is supported by the allocator.
      * @param algorithm Algorithm name read from the configuration file.
      * @return true for basic, spilling, splitting or free.
-     * @complexity O(1), because only four constant strings are compared.
      */
     bool isKnownAlgorithm(const string& algorithm) {
         return algorithm == "basic" || algorithm == "spilling" || algorithm == "splitting" || algorithm == "free";
@@ -67,15 +76,10 @@ namespace {
     /**
      * @brief Executes the full pipeline from input files to allocation output.
      *
-     * The pipeline parses both inputs, validates user parameters, builds webs, builds the interference
-     * graph, invokes the chosen coloring strategy and writes the final allocation file.
-     *
      * @param rangesFile Path to the live-ranges input file.
      * @param registersFile Path to the register configuration file.
      * @param outputFile Path where the allocation output should be written.
      * @return true if allocation succeeded, false if input validation or allocation failed.
-     * @complexity O(parse + W^2 * P^2 + allocation), where W is the number of webs and P is the
-     * maximum number of points per web.  The allocation term depends on the selected algorithm.
      */
     bool runAllocation(const string& rangesFile, const string& registersFile, const string& outputFile) {
         RegisterConfig config = parseRegistersFile(registersFile);
@@ -109,11 +113,10 @@ namespace {
      * @brief Runs the simple interactive menu requested for the demo.
      *
      * Option 1 keeps the original behavior and asks for complete paths.
-     * Option 2 is a convenience option that prepends `input/ranges/` and `input/registers/`
-     * to the file names typed by the user.
+     * Option 2 is a convenience option that prepends default input folders.
+     * Input validation traps the user until an existing file is provided or the input is valid.
      *
      * @return Process exit code.
-     * @complexity Each allocation option has the complexity of runAllocation(); menu overhead is O(1).
      */
     int interactiveMenu() {
         string rangesFile;
@@ -128,29 +131,59 @@ namespace {
             cout << "Option: ";
 
             int option = -1;
-            if (!(cin >> option)) return 1;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            // Robust cin failure check: clears error, flushes buffer, and restarts menu loop
+            if (!(cin >> option)) {
+                cout << "Invalid option. Please enter a valid number.\n";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // flush normal newline
 
             if (option == 0) return 0;
             if (option != 1 && option != 2) {
-                cout << "Invalid option.\n";
+                cout << "Invalid option. Please select 0, 1, or 2.\n";
                 continue;
             }
 
-            if (option == 1) {
-                cout << "Ranges file path: ";
-                getline(cin, rangesFile);
-                cout << "Registers file path: ";
-                getline(cin, registersFile);
-            } else {
-                cout << "Ranges file name (inside " << DEFAULT_RANGES_FOLDER << "): ";
-                getline(cin, rangesFile);
-                cout << "Registers file name (inside " << DEFAULT_REGISTERS_FOLDER << "): ";
-                getline(cin, registersFile);
-                rangesFile = inputPathFromDefaultFolder(DEFAULT_RANGES_FOLDER, rangesFile);
-                registersFile = inputPathFromDefaultFolder(DEFAULT_REGISTERS_FOLDER, registersFile);
+            // Robust loop for ranges file
+            while (true) {
+                if (option == 1) {
+                    cout << "Ranges file path: ";
+                    getline(cin, rangesFile);
+                } else {
+                    cout << "Ranges file name (inside " << DEFAULT_RANGES_FOLDER << "): ";
+                    getline(cin, rangesFile);
+                    rangesFile = inputPathFromDefaultFolder(DEFAULT_RANGES_FOLDER, rangesFile);
+                }
+
+                ifstream checkFile(rangesFile);
+                if (checkFile.is_open()) {
+                    break; // File exists, move on
+                }
+                cout << "Error: Could not open '" << rangesFile << "'. Please try again.\n";
             }
 
+            // Robust loop for registers file
+            while (true) {
+                if (option == 1) {
+                    cout << "Registers file path: ";
+                    getline(cin, registersFile);
+                } else {
+                    cout << "Registers file name (inside " << DEFAULT_REGISTERS_FOLDER << "): ";
+                    getline(cin, registersFile);
+                    registersFile = inputPathFromDefaultFolder(DEFAULT_REGISTERS_FOLDER, registersFile);
+                }
+
+                ifstream checkFile(registersFile);
+                if (checkFile.is_open()) {
+                    break; // File exists, move on
+                }
+                cout << "Error: Could not open '" << registersFile << "'. Please try again.\n";
+            }
+
+            // Output file (no check needed, it will create it or fail safely in Output.cpp)
             cout << "Output file: ";
             getline(cin, outputFile);
 
@@ -169,7 +202,6 @@ namespace {
  * @param argc Number of command-line arguments.
  * @param argv Command-line argument vector.
  * @return 0 on success, 1 on argument/menu errors and 2 when allocation is infeasible.
- * @complexity O(runAllocation) in batch mode and O(number_of_menu_runs * runAllocation) in interactive mode.
  */
 int main(int argc, char* argv[]) {
     if (argc == 1) {

@@ -9,7 +9,7 @@
 #include "Structures.h"
 
 /**
-* @brief Allocates registers according to the selected algorithm.
+ * @brief Allocates registers according to the selected algorithm.
  *
  * Supported modes:
  * - `basic`: simplification-stack graph coloring only;
@@ -25,13 +25,13 @@
  * @param mode Allocation strategy name: `basic`, `spilling`, `splitting` or `free`.
  * @param K Optional strategy parameter used as the spill/split budget.
  * @return ColoringResult with the final webs and the register or memory assignment for each web.
- * @complexity Let V be the number of webs, E the number of interference edges, P the maximum
+ * * @complexity Let V be the number of webs, E the number of interference edges, P the maximum
  * number of program points per web, C the register limit, K the spill/split budget, and S
  * the total number of split candidates evaluated across all webs (roughly V * P).
- * Basic allocation costs O(C * (V^2 + E)) after graph construction.
- * Spilling uses polynomial heuristics (Hopcroft-Tarjan articulation points and max-degree) bounded by O(K * C * (V^2 + E)).
- * Splitting performs an exhaustive greedy search, resulting in up to K * S graph rebuilds, dominated by O(K * S * (V^2 * P^2)).
- * Free mode uses DSATUR (bounded by a strict call limit) followed by O(V * C * (V^2 + E)) heuristic spilling.
+ * - **Basic:** Allocation costs O(C * (V^2 + E)) after graph construction.
+ * - **Spilling:** Uses polynomial heuristics (Hopcroft-Tarjan articulation points and max-degree) bounded by O(K * C * (V^2 + E)).
+ * - **Splitting:** Performs an exhaustive greedy search, resulting in up to K * S graph rebuilds, dominated by O(K * S * (V^2 * P^2)).
+ * - **Free:** Uses DSATUR (bounded by a strict call limit) followed by O(V * C * (V^2 + E)) heuristic spilling.
  */
 ColoringResult colorGraphFunc(const Graph<Web> &graph, int N, const std::string& mode, int K);
 
